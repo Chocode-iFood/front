@@ -28,7 +28,7 @@ function rodar() {
     // msglogin.classList.remove("hidden");
     msglogin.textContent = "Sucesso!";
     setTimeout(() => {
-        window.location.href = "https://chocode-ifood.github.io/front/pedidos.html"
+        window.location.href = "http://127.0.0.1:5500/pedidos.html"
     }, 3000);
 }
 
