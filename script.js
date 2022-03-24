@@ -2,9 +2,10 @@ const btn = document.querySelector(".btnEntrar");
 const form = document.querySelector(".formLogin");
 const email = document.querySelector(".email");
 const senha = document.querySelector(".senha");
+const msglogin = document.querySelector(".msglogin")
 
-function logar() {
-    fetch("http://localhost:8080/login",
+async function logar() {
+    let response = await fetch("http://localhost:8080/login",
         {
             headers: {
                 "Accept": "aplication/json",
@@ -15,11 +16,22 @@ function logar() {
                 email: email.value,
                 senha: senha.value,
             })
-        })
-        .then(function (res) { console.log(res) })
-        .catch(function (res) { console.log(res) })
-    console.log(email.value, senha.value)
+        }).catch().finally()
+    if (response.ok) {
+        rodar()
+    } else {
+        msglogin.textContent = "Erro ao conectar";
+    }
 }
+
+function rodar() {
+    // msglogin.classList.remove("hidden");
+    msglogin.textContent = "Sucesso!";
+    setTimeout(() => {
+        window.location.href = "http://127.0.0.1:5500/pedidos.html"
+    }, 3000);
+}
+
 function limpar() {
     email.value = "",
         senha.value = "";
@@ -30,4 +42,6 @@ form.addEventListener('submit', function (event) {
     logar();
     limpar();
 });
+
+
 
