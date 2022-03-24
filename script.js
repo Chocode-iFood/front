@@ -5,7 +5,7 @@ const senha = document.querySelector(".senha");
 const msglogin = document.querySelector(".msglogin")
 
 async function logar() {
-    let response = await fetch("http://localhost:8080/login",
+    let response = await fetch("https://bancogama.herokuapp.com/login",
         {
             headers: {
                 "Accept": "aplication/json",
