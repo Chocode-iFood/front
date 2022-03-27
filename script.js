@@ -4,8 +4,9 @@ const email = document.querySelector(".email");
 const senha = document.querySelector(".senha");
 const msglogin = document.querySelector(".msglogin")
 
+
 async function logar() {
-    let response = await fetch("http://localhost:8080/login",
+    let response = await fetch("https://chocode.herokuapp.com/login",
         {
             headers: {
                 "Accept": "aplication/json",
@@ -27,7 +28,7 @@ async function logar() {
 function rodar() {
     msglogin.textContent = "Sucesso!";
     setTimeout(() => {
-        window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html"
+        window.location.href = "https://chocode-ifood.github.io/front/pedidos.html"
     }, 3000);
 }
 
@@ -41,6 +42,3 @@ form.addEventListener('submit', function (event) {
     logar();
     limpar();
 });
-
-
-
