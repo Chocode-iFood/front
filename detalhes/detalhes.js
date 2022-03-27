@@ -1,6 +1,26 @@
 const pedidoId = localStorage.getItem("pedido");
 const body = document.querySelector('body');
 
+async function enviar() {
+    let response = await fetch("https://chocode.herokuapp.com/login",
+        {
+            headers: {
+                "Accept": "aplication/json",
+                "Content-Type": "aplication/json"
+            },
+            method: "POST",
+            body: JSON.stringify({
+                email: email.value,
+                senha: senha.value,
+            })
+        }).catch().finally()
+    if (response.ok) {
+        rodar()
+    } else {
+        msglogin.textContent = "Erro ao conectar";
+    }
+}
+
 fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`)
     .then(function (response) {
         response.json().then(function (pedido) {

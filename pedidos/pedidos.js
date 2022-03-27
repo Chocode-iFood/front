@@ -17,13 +17,25 @@ fetch('https://chocode.herokuapp.com/pedido/aguardando').then(function (response
             pedido = document.querySelector('button');
             nome.addEventListener('click', event => {
                 localStorage.setItem('pedido', nome.id);
-                window.location.href = "https://chocode-ifood.github.io/front/detalhes/detalhes.html"
+                const entregadorId = localStorage.getItem('entregadorId')
+
+                fetch(`https://chocode.herokuapp.com/pedido/${nome.id}/entregador/${entregadorId}`,
+                    {
+                        method: "PUT",
+                    }).catch().finally()
+                if (response.ok) {
+                    proximaPagina();
+                } else {
+                    console.log("Erro no PUT", response.status);
+                }
             })
         })
     })
 })
 
-
+function proximaPagina() {
+    window.location.href = "https://chocode-ifood.github.io/front/detalhes/detalhes.html";
+}
 
 
 

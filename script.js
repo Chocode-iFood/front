@@ -19,6 +19,7 @@ async function logar() {
             })
         }).catch().finally()
     if (response.ok) {
+        localStorage.setItem('entregadorId', '1')
         rodar()
     } else {
         msglogin.textContent = "Erro ao conectar";
