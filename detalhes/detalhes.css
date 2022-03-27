@@ -12,13 +12,12 @@ body {
 }
 
 .box {
-  margin-top: 50px;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: fle;
   justify-content:flex-start;
   min-width: 15rem;
-  min-height: 25rem;
   border-radius: 25px;
   text-align: center;
   color: rgb(44, 8, 8);
@@ -32,7 +31,7 @@ body {
 button {
   all: unset;
   margin-top: 8px;
-  width: 350px;
+  width: 300px;
   height: 40px;
   font-size: 20px;
   text-align: center;
