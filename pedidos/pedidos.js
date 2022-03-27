@@ -1,5 +1,4 @@
 const body = document.querySelector('body');
-let btns;
 
 fetch('https://chocode.herokuapp.com/pedido/findAll').then(function (response) {
     const promise = response.json()
@@ -18,7 +17,7 @@ fetch('https://chocode.herokuapp.com/pedido/findAll').then(function (response) {
             pedido = document.querySelector('button');
             nome.addEventListener('click', event => {
                 localStorage.setItem('pedido', nome.id);
-                window.location.href = "http://127.0.0.1:5500/detalhes/detalhes.html"
+                window.location.href = "https://chocode-ifood.github.io/front/detalhes/detalhes.html"
             })
         })
     })
