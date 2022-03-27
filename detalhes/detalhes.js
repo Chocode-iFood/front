@@ -1,5 +1,19 @@
 const pedidoId = localStorage.getItem("pedido");
 const body = document.querySelector('body');
+const box = document.querySelector('.box');
+
+let lat;
+let long;
+if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(function (posicao) {
+        lat = posicao.coords.latitude;
+        long = posicao.coords.longitude;
+        time = posicao.timestamp;
+        initMap();
+    }, function (error) {
+        console.log(error)
+    }, { enableHighAccuracy: true, maximumAge: 5000, timeout: 5000 })
+}
 
 async function enviar() {
     let response = await fetch("https://chocode.herokuapp.com/login",
@@ -48,14 +62,24 @@ fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`)
             const status = document.createElement('p');
             status.textContent = "Status: " + pedido.status;
 
-            console.log(pedido.cliente)
-
             div.append(cliente, endereco, restaurante, produto, latitude, longitude, status);
-            body.append(div);
+            box.append(div)
+            body.append(box);
         });
     })
     .catch(function (error) {
         console.log('Erro: ' + error.message);
     });
 
+function initMap() {
+    const local = { lat: lat, lng: long };
+    const map = new google.maps.Map(document.getElementById("map"), {
+        center: local,
+        zoom: 17,
+    });
+    const marker = new google.maps.Marker({
+        position: local,
+        map: map,
+    });
+}
 
