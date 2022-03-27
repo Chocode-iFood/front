@@ -28,7 +28,7 @@ async function logar() {
 function rodar() {
     msglogin.textContent = "Sucesso!";
     setTimeout(() => {
-        window.location.href = "https://chocode-ifood.github.io/front/pedidos.html"
+        window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html"
     }, 3000);
 }
 
