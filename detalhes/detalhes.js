@@ -28,6 +28,8 @@ fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`)
             const status = document.createElement('p');
             status.textContent = "Status: " + pedido.status;
 
+            console.log(pedido.cliente)
+
             div.append(cliente, endereco, restaurante, produto, latitude, longitude, status);
             body.append(div);
         });
