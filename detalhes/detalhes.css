@@ -3,9 +3,14 @@
   padding: 0;
 }
 
+#map {
+  min-height: 300px;
+  width: 300px;
+}
+
 body {
-  width: 100%vh;
-  height: 100%vw;
+  width: 100%;
+  height: 100%;
   font-family: 'Rubik', sans-serif;
   font-size: 1rem;
   background-color: white;
@@ -13,14 +18,10 @@ body {
 
 .box {
   margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: fle;
-  justify-content:flex-start;
   min-width: 15rem;
+  min-height: auto;
   border-radius: 25px;
   text-align: center;
-  color: rgb(44, 8, 8);
 }
 
 body h2 {
@@ -29,6 +30,7 @@ body h2 {
 }
 
 .pedido {
+  gap: 6px;
   padding: 5px 10px;
   margin-top: 8px;
   width: 300px;
@@ -40,7 +42,6 @@ body h2 {
   color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: flex-start;
 }
 
@@ -55,5 +56,6 @@ button:active {
   justify-content: center;
   align-items: center;
 }
+
 
 
