@@ -1,6 +1,6 @@
 const body = document.querySelector('body');
 
-fetch('https://chocode.herokuapp.com/pedido/findAll').then(function (response) {
+fetch('https://chocode.herokuapp.com/pedido/aguardando').then(function (response) {
     const promise = response.json()
     promise.then(function (lista) {
         lista.forEach(function (pedido) {
