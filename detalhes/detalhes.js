@@ -9,30 +9,12 @@ if ('geolocation' in navigator) {
         lat = posicao.coords.latitude;
         long = posicao.coords.longitude;
         time = posicao.timestamp;
+        console.log('Posicao -> ', lat)
+        console.log('Posicao -> ', long)
         initMap();
     }, function (error) {
         console.log(error)
-    }, { enableHighAccuracy: true, maximumAge: 5000, timeout: 5000 })
-}
-
-async function enviar() {
-    let response = await fetch("https://chocode.herokuapp.com/login",
-        {
-            headers: {
-                "Accept": "aplication/json",
-                "Content-Type": "aplication/json"
-            },
-            method: "POST",
-            body: JSON.stringify({
-                email: email.value,
-                senha: senha.value,
-            })
-        }).catch().finally()
-    if (response.ok) {
-        rodar()
-    } else {
-        msglogin.textContent = "Erro ao conectar";
-    }
+    })
 }
 
 fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`)
@@ -57,7 +39,7 @@ fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`)
             latitude.textContent = "Latitude: " + pedido.cliente.latitude;
 
             const longitude = document.createElement('p');
-            longitude.textContent = "Latitude: " + pedido.cliente.longitude;
+            longitude.textContent = "Longitude: " + pedido.cliente.longitude;
 
             const status = document.createElement('p');
             status.textContent = "Status: " + pedido.status;
@@ -70,16 +52,31 @@ fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`)
     .catch(function (error) {
         console.log('Erro: ' + error.message);
     });
+localStorage.setItem('entregador', 'Daniel');
 
-function initMap() {
-    const local = { lat: lat, lng: long };
+let posEntregador = { lat: -23.5581495, lng: -46.3313586 };
+let posCliente = { lat: -23.549374, lng: -46.3912777 };
+
+async function initMap() {
+    const local = {}
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
+
     const map = new google.maps.Map(document.getElementById("map"), {
-        center: local,
-        zoom: 17,
+        zoom: 10,
+        disableDefaultUI: true
     });
-    const marker = new google.maps.Marker({
-        position: local,
-        map: map,
+
+    directionsRenderer.setMap(map);
+
+    directionsService.route({
+        origin: posEntregador,
+        destination: posCliente,
+        travelMode: google.maps.TravelMode.DRIVING
+    }).then(response => {
+        console.log({ response });
+        directionsRenderer.setDirections(response);
+    }).catch(erro => {
+        console.log(erro)
     });
 }
-
