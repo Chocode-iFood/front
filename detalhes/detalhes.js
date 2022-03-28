@@ -70,16 +70,20 @@ fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`)
     .catch(function (error) {
         console.log('Erro: ' + error.message);
     });
-
+localStorage.setItem('entregador', 'Daniel');
 function initMap() {
     const local = { lat: lat, lng: long };
     const map = new google.maps.Map(document.getElementById("map"), {
         center: local,
-        zoom: 17,
+        zoom: 15,
+        disableDefaultUI: true
     });
     const marker = new google.maps.Marker({
         position: local,
         map: map,
+        title: 'Origem',
+        label: `${localStorage.getItem('entregador')}`,
+        
     });
 }
 
