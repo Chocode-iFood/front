@@ -9,8 +9,6 @@ if ('geolocation' in navigator) {
         lat = posicao.coords.latitude;
         long = posicao.coords.longitude;
         time = posicao.timestamp;
-        console.log('Posicao -> ', lat)
-        console.log('Posicao -> ', long)
         initMap();
     }, function (error) {
         console.log(error)

@@ -10,7 +10,6 @@ fetch('https://chocode.herokuapp.com/pedido/aguardando').then(function (response
             const nome = document.createElement('button');
             nome.setAttribute("id", pedido.id);
             nome.textContent = pedido.nomeRestaurante;
-            console.log(pedido)
             div.append(nome);
             body.append(div);
 
@@ -24,8 +23,6 @@ fetch('https://chocode.herokuapp.com/pedido/aguardando').then(function (response
                         method: "PUT",
                     }).catch().finally()
                 if (response.ok) {
-                    console.log(response.body)
-                    console.log(response)
                     proximaPagina();
                 } else {
                     console.log("Erro no PUT", response.status);
