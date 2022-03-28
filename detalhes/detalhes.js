@@ -1,9 +1,14 @@
 const pedidoId = localStorage.getItem("pedido");
-const body = document.querySelector('body');
-const box = document.querySelector('.box');
-
+let restaurante = document.querySelector('.restaurante');
+let produto = document.querySelector('.produto');
+let cliente = document.querySelector('.cliente');
+let endereco = document.querySelector('.endereco');
+let latitude = document.querySelector('.latitude');
+let longitude = document.querySelector('.longitude');
+let status = document.querySelector('.status');
 let lat;
 let long;
+
 if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(function (posicao) {
         lat = posicao.coords.latitude;
@@ -18,33 +23,14 @@ if ('geolocation' in navigator) {
 fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`)
     .then(function (response) {
         response.json().then(function (pedido) {
-            const div = document.createElement('div');
-            div.classList.add('pedido');
 
-            const restaurante = document.createElement('p');
-            restaurante.textContent = "Restaurante: " + pedido.nomeRestaurante;
-
-            const produto = document.createElement('p');
-            produto.textContent = "Produto: " + pedido.produto;
-
-            const cliente = document.createElement('p');
-            cliente.textContent = "Cliente: " + pedido.cliente.nome;
-
-            const endereco = document.createElement('p');
-            endereco.textContent = "Endereço: " + pedido.cliente.endereco;
-
-            const latitude = document.createElement('p');
-            latitude.textContent = "Latitude: " + pedido.cliente.latitude;
-
-            const longitude = document.createElement('p');
-            longitude.textContent = "Longitude: " + pedido.cliente.longitude;
-
-            const status = document.createElement('p');
-            status.textContent = "Status: " + pedido.status;
-
-            div.append(cliente, endereco, restaurante, produto, latitude, longitude, status);
-            box.append(div)
-            body.append(box);
+            restaurante.textContent = pedido.nomeRestaurante;
+            produto.textContent = pedido.produto;
+            cliente.textContent = pedido.cliente.nome;
+            endereco.textContent = pedido.cliente.endereco;
+            latitude.textContent = pedido.cliente.latitude;
+            longitude.textContent = pedido.cliente.longitude;
+            status.textContent = pedido.status;
         });
     })
     .catch(function (error) {
@@ -62,6 +48,51 @@ async function initMap() {
 
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 10,
+        styles: [
+            {
+                "featureType": "administrative",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "labels.icon",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit",
+                "stylers": [
+                    {
+                        "visibility": "off"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "color": "#f20707"
+                    }
+                ]
+            }
+        ],
         disableDefaultUI: true
     });
 
@@ -78,3 +109,5 @@ async function initMap() {
         console.log(erro)
     });
 }
+
+

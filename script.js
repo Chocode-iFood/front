@@ -5,7 +5,7 @@ const senha = document.querySelector(".senha");
 const msglogin = document.querySelector(".msglogin")
 
 async function logar() {
-    let response = await fetch("https://chocode.herokuapp.com/login",
+    let response = await fetch("https://chocode.herokuapp.com/entregador/login",
         {
             headers: {
                 "Accept": "aplication/json",
@@ -18,6 +18,7 @@ async function logar() {
             })
         }).catch().finally()
     if (response.ok) {
+        console.log(response);
         localStorage.setItem('entregadorId', '1')
         rodar()
     } else {
