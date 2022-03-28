@@ -24,6 +24,8 @@ fetch('https://chocode.herokuapp.com/pedido/aguardando').then(function (response
                         method: "PUT",
                     }).catch().finally()
                 if (response.ok) {
+                    console.log(response.body)
+                    console.log(response)
                     proximaPagina();
                 } else {
                     console.log("Erro no PUT", response.status);
