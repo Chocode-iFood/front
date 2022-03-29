@@ -112,14 +112,17 @@ async function initMap() {
         console.log(erro)
     });
 }
+
 btnConcluir.addEventListener('click', event => {
-    console.log('Clicou em Concluir')
-    contarSegundos();
+    clearInterval(motor);
+    pedidoEntregue();
+    proximaPagina();
 });
 
 btnCancelar.addEventListener('click', event => {
-    console.log('Clicou em cancelar')
     clearInterval(motor);
+    cancelarPedido();
+    proximaPagina();
 });
 
 async function enviarLocalizacao() {
@@ -129,7 +132,7 @@ async function enviarLocalizacao() {
         idEntregador: 1,
         idPedido: 1
     }
-    await fetch("https://chocode.herokuapp.com/geolocalizacao",
+    fetch("https://chocode.herokuapp.com/geolocalizacao",
         {
             method: "POST",
             headers: {
@@ -144,13 +147,36 @@ async function enviarLocalizacao() {
 function contarSegundos() {
     motor = setInterval(() => {
         enviarLocalizacao();
-        console.log('Mandei aí Suzano')
-    }, 30000);
+    }, 120000);
 }
 
-// 'https://chocode.herokuapp.com/pedido/3/entregador/1/cancelado'
+function cancelarPedido() {
+    fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}/entregador/${entregadorId}/cancelado`,
+        {
+            method: "PUT",
+            headers: {
+                "Authorization": token
+            }
+        }).then(response => console.log(response))
+    console.log('Cliquei cancelar', response)
+}
 
-// 'https://chocode.herokuapp.com/pedido/3/entregador/1/entregue'
+function pedidoEntregue() {
+    fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}/entregador/${entregadorId}/entregue`,
+        {
+            method: "PUT",
+            headers: {
+                "Authorization": token
+            }
+        }).then(response => console.log(response))
+    console.log('Cliquei entregue', response)
+}
+
+function proximaPagina() {
+    window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
+}
+contarSegundos();
+enviarLocalizacao();
 
 
 
