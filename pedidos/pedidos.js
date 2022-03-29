@@ -33,7 +33,7 @@ fetch('https://chocode.herokuapp.com/pedido/aguardando').then(function (response
 })
 
 function proximaPagina() {
-    window.location.href = "https://chocode-ifood.github.io/front/detalhes/detalhes.html";
+    window.location.href = "http://127.0.0.1:5500/detalhes/detalhes.html";
 }
 
 
