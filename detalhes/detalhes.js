@@ -1,30 +1,32 @@
 const pedidoId = localStorage.getItem('pedido');
+const entregadorId = localStorage.getItem('endereco');
 const token = localStorage.getItem('token');
 const body = document.querySelector('body');
 const divPedidos = document.querySelector('.pedidos');
 const btnConcluir = document.querySelector('.concluir');
 const btnCancelar = document.querySelector('.cancelar');
 
-let lat;
-let long;
+let lat = 0;
+let long = 0;
 let motor;
 
 if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(function (posicao) {
+        console.log(posicao.coords.latitude)
+        console.log(posicao.coords.longitude)
         lat = posicao.coords.latitude;
         long = posicao.coords.longitude;
-        time = posicao.timestamp;
         initMap();
     }, function (error) {
         console.log(error)
     })
 }
-console.log(token)
+
 fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`,
     {
         method: "GET",
         headers: {
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbWFpbEBjb20iLCJpc3MiOiJDaG9jb2RlIiwiZXhwIjoxNjQ4NjUyMzk0fQ.4zmklCqzv-55zvyYBy5quCmDQDmg2w05L1Sp_zbqvqM"
+            "Authorization": token
         }
     }).then(function (response) {
         response.json().then(function (pedido) {
@@ -55,21 +57,12 @@ fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`,
         console.log('Erro: ' + error.message);
     });
 
-localStorage.setItem('entregador', 'Daniel');
-
-const listaPosEntregador = [
-    { lat: -23.5581495, lng: -46.3313586 },
-    { lat: -23.5581495, lng: -46.3313586 },
-    { lat: -23.5581495, lng: -46.3313586 }
-]
-
-let posEntregador = { lat: -23.5581495, lng: -46.3313586 };
-let posCliente = { lat: -23.549374, lng: -46.3912777 };
+let posEntregador = { lat: lat, lng: long };
+let posCliente = { lat: -23.5446941, lng: -46.3786544 };
 
 async function initMap() {
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
-
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 10,
         styles: [
@@ -77,43 +70,33 @@ async function initMap() {
                 "featureType": "administrative",
                 "elementType": "geometry",
                 "stylers": [
-                    {
-                        "visibility": "off"
-                    }
+                    { "visibility": "off" }
                 ]
             },
             {
                 "featureType": "poi",
                 "stylers": [
-                    {
-                        "visibility": "off"
-                    }
+                    { "visibility": "off" }
                 ]
             },
             {
                 "featureType": "road",
                 "elementType": "labels.icon",
                 "stylers": [
-                    {
-                        "visibility": "off"
-                    }
+                    { "visibility": "off" }
                 ]
             },
             {
                 "featureType": "transit",
                 "stylers": [
-                    {
-                        "visibility": "off"
-                    }
+                    { "visibility": "off" }
                 ]
             },
             {
                 "featureType": "water",
                 "elementType": "labels.text.stroke",
                 "stylers": [
-                    {
-                        "color": "#f20707"
-                    }
+                    { "color": "#f20707" }
                 ]
             }
         ],
@@ -142,12 +125,10 @@ btnCancelar.addEventListener('click', event => {
     clearInterval(motor);
 });
 
-
-
 async function enviarLocalizacao() {
     const dados = {
-        latitude: "-23.547500",
-        longitude: "-46.63611",
+        latitude: lat,
+        longitude: long,
         idEntregador: 1,
         idPedido: 1
     }
@@ -155,32 +136,27 @@ async function enviarLocalizacao() {
         {
             method: "POST",
             headers: {
-                "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbWFpbEBjb20iLCJpc3MiOiJDaG9jb2RlIiwiZXhwIjoxNjQ4NjUyMzk0fQ.4zmklCqzv-55zvyYBy5quCmDQDmg2w05L1Sp_zbqvqM",
+                "Authorization": token,
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(dados)
-        }).then(response => {
-            console.log(response)
-        })
-
+        }).then(response => console.log(response))
 }
 
 function contarSegundos() {
     motor = setInterval(() => {
         enviarLocalizacao();
         console.log('Mandei aí Suzano')
-    }, 3000);
+    }, 30000);
 }
 
+// 'https://chocode.herokuapp.com/pedido/3/entregador/1/cancelado'
 
-'https://chocode.herokuapp.com/pedido/3/entregador/1/cancelado'
+// 'https://chocode.herokuapp.com/pedido/3/entregador/1/entregue'
 
-'https://chocode.herokuapp.com/pedido/3/entregador/1/entregue'
 
-'https://chocode.herokuapp.com/geolocalizacao'
 
-"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlbWFpbEBjb20iLCJpc3MiOiJDaG9jb2RlIiwiZXhwIjoxNjQ4NjUyMzk0fQ.4zmklCqzv-55zvyYBy5quCmDQDmg2w05L1Sp_zbqvqM"
 
 
 
