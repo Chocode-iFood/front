@@ -1,5 +1,5 @@
 const pedidoId = localStorage.getItem('pedido');
-const entregadorId = localStorage.getItem('endereco');
+const entregadorId = localStorage.getItem('entregador');
 const token = localStorage.getItem('token');
 const body = document.querySelector('body');
 const divPedidos = document.querySelector('.pedidos');
