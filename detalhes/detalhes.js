@@ -129,8 +129,8 @@ async function enviarLocalizacao() {
     const dados = {
         latitude: lat,
         longitude: long,
-        idEntregador: 1,
-        idPedido: 1
+        idEntregador: entregadorId,
+        idPedido: pedidoId
     }
     fetch("https://chocode.herokuapp.com/geolocalizacao",
         {

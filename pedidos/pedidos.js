@@ -1,4 +1,5 @@
 const body = document.querySelector('body');
+const token = localStorage.getItem('token');
 
 fetch('https://chocode.herokuapp.com/pedido/aguardando').then(function (response) {
     const promise = response.json()
@@ -21,6 +22,9 @@ fetch('https://chocode.herokuapp.com/pedido/aguardando').then(function (response
                 fetch(`https://chocode.herokuapp.com/pedido/${nome.id}/entregador/${entregadorId}`,
                     {
                         method: "PUT",
+                        headers: {
+                            "Authorization": token,
+                        }
                     }).catch().finally()
                 if (response.ok) {
                     proximaPagina();
