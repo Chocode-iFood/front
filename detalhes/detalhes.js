@@ -12,8 +12,6 @@ let motor;
 
 if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(function (posicao) {
-        console.log(posicao.coords.latitude)
-        console.log(posicao.coords.longitude)
         lat = posicao.coords.latitude;
         long = posicao.coords.longitude;
         initMap();
@@ -30,7 +28,6 @@ fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`,
         }
     }).then(function (response) {
         response.json().then(function (pedido) {
-            console.log('pedidos -> ', pedido)
 
             const divDados = document.createElement('div');
             divDados.classList.add('dados');
