@@ -17,7 +17,7 @@ fetch('https://chocode.herokuapp.com/pedido/aguardando').then(function (response
             pedido = document.querySelector('button');
             nome.addEventListener('click', event => {
                 localStorage.setItem('pedido', nome.id);
-                const entregadorId = localStorage.getItem('entregadorId')
+                const entregadorId = localStorage.getItem('entregador')
 
                 fetch(`https://chocode.herokuapp.com/pedido/${nome.id}/entregador/${entregadorId}`,
                     {
