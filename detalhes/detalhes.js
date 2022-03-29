@@ -66,35 +66,25 @@ async function initMap() {
             {
                 "featureType": "administrative",
                 "elementType": "geometry",
-                "stylers": [
-                    { "visibility": "off" }
-                ]
+                "stylers": [{ "visibility": "off" }]
             },
             {
                 "featureType": "poi",
-                "stylers": [
-                    { "visibility": "off" }
-                ]
+                "stylers": [{ "visibility": "off" }]
             },
             {
                 "featureType": "road",
                 "elementType": "labels.icon",
-                "stylers": [
-                    { "visibility": "off" }
-                ]
+                "stylers": [{ "visibility": "off" }]
             },
             {
                 "featureType": "transit",
-                "stylers": [
-                    { "visibility": "off" }
-                ]
+                "stylers": [{ "visibility": "off" }]
             },
             {
                 "featureType": "water",
                 "elementType": "labels.text.stroke",
-                "stylers": [
-                    { "color": "#f20707" }
-                ]
+                "stylers": [{ "color": "#f20707" }]
             }
         ],
         disableDefaultUI: true
@@ -147,7 +137,7 @@ async function enviarLocalizacao() {
 function contarSegundos() {
     motor = setInterval(() => {
         enviarLocalizacao();
-    }, 120000);
+    }, 60000);
 }
 
 function cancelarPedido() {
@@ -158,7 +148,6 @@ function cancelarPedido() {
                 "Authorization": token
             }
         }).then(response => console.log(response))
-    console.log('Cliquei cancelar', response)
 }
 
 function pedidoEntregue() {
@@ -169,7 +158,6 @@ function pedidoEntregue() {
                 "Authorization": token
             }
         }).then(response => console.log(response))
-    console.log('Cliquei entregue', response)
 }
 
 function proximaPagina() {
