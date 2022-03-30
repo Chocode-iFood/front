@@ -70,11 +70,11 @@ fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`,
             pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
             pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
             pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
-            pLat.textContent = 'Latitude: ' + pedido.cliente.latitude;
-            pLong.textContent = 'Longitude: ' + pedido.cliente.longitude;
+            // pLat.textContent = 'Latitude: ' + pedido.cliente.latitude;
+            // pLong.textContent = 'Longitude: ' + pedido.cliente.longitude;
             pStatus.textContent = 'Status: ' + pedido.status;
 
-            divDados.append(pRes, pCliente, pEnd, pLat, pLong, pStatus);
+            divDados.append(pRes, pCliente, pEnd, pStatus);
             divPedidos.append(divDados)
         });
     })
@@ -86,7 +86,7 @@ function contarSegundos() {
     motor = setInterval(() => {
         obterLocalizacao()
         enviarLocalizacao();
-    }, 30000);
+    }, 10000);
 }
 
 async function initMap(a, b, posCliente) {

@@ -96,11 +96,11 @@ button {
   border-radius: 10px;
 }
 
-.concluir {
+.iniciar {
   background-color: rgb(16, 160, 16);
 }
 
-.cancelar {
+.voltar {
   background-color: rgb(228, 27, 27);
 }
 
