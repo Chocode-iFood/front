@@ -166,4 +166,6 @@ function enviarLocalizacao() {
         }).then(response => console.log(response))
 }
 obterLocalizacao();
+enviarLocalizacao();
 contarSegundos();
+
