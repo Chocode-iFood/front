@@ -6,7 +6,6 @@ const divPedidos = document.querySelector('.pedidos');
 const btnConcluir = document.querySelector('.concluir');
 const btnCancelar = document.querySelector('.cancelar');
 
-
 let posicaoCliente = { lat: -23.5446941, lng: -46.3786544 };
 let lat = 0;
 let long = 0;
@@ -83,47 +82,11 @@ fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`,
         console.log('Erro: ' + error);
     });
 
-btnConcluir.addEventListener('click', event => {
-    clearInterval(motor);
-    pedidoEntregue();
-    proximaPagina();
-});
-
-btnCancelar.addEventListener('click', event => {
-    clearInterval(motor);
-    cancelarPedido();
-    proximaPagina();
-});
-
 function contarSegundos() {
     motor = setInterval(() => {
         obterLocalizacao()
         enviarLocalizacao();
-    }, 120000);
-}
-
-function cancelarPedido() {
-    fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}/entregador/${entregadorId}/cancelado`,
-        {
-            method: "PUT",
-            headers: {
-                "Authorization": token
-            }
-        }).then(response => console.log(response))
-}
-
-function pedidoEntregue() {
-    fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}/entregador/${entregadorId}/entregue`,
-        {
-            method: "PUT",
-            headers: {
-                "Authorization": token
-            }
-        }).then(response => console.log(response))
-}
-
-function proximaPagina() {
-    window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
+    }, 30000);
 }
 
 async function initMap(a, b, posCliente) {
@@ -158,9 +121,7 @@ async function initMap(a, b, posCliente) {
         ],
         disableDefaultUI: true
     });
-
     directionsRenderer.setMap(map);
-
     directionsService.route({
         origin: { lat: a, lng: b },
         destination: posCliente,
@@ -171,9 +132,43 @@ async function initMap(a, b, posCliente) {
         console.log(erro)
     });
 }
-
-
 obterLocalizacao();
 enviarLocalizacao();
 contarSegundos();
+
+btnConcluir.addEventListener('click', event => {
+    clearInterval(motor);
+    pedidoEntregue();
+    proximaPagina();
+});
+
+btnCancelar.addEventListener('click', event => {
+    clearInterval(motor);
+    cancelarPedido();
+    proximaPagina();
+});
+
+function cancelarPedido() {
+    fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}/entregador/${entregadorId}/cancelado`,
+        {
+            method: "PUT",
+            headers: {
+                "Authorization": token
+            }
+        }).then(response => console.log(response))
+}
+
+function pedidoEntregue() {
+    fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}/entregador/${entregadorId}/entregue`,
+        {
+            method: "PUT",
+            headers: {
+                "Authorization": token
+            }
+        }).then(response => console.log(response))
+}
+
+function proximaPagina() {
+    window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
+}
 
