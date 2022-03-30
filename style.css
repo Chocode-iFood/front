@@ -63,9 +63,10 @@ input::placeholder {
   font-size: 12px;
   padding: 2px 20px;
 }
-.box p {
+.msglogin {
+  height: 25px;
   color: rgb(7, 85, 37);
-  font-size: 15px;
+  font-size: 18px;
 }
 
 .btnEntrar {
