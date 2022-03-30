@@ -70,32 +70,11 @@ btnCancelar.addEventListener('click', event => {
     proximaPagina();
 });
 
-
-function enviarLocalizacao() {
-    obterLocalizacao();
-    const dados = {
-        latitude: lat,
-        longitude: long,
-        idEntregador: entregadorId,
-        idPedido: pedidoId,
-    }
-    fetch("https://chocode.herokuapp.com/geolocalizacao",
-        {
-            method: "POST",
-            headers: {
-                "Authorization": token,
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(dados)
-        }).then(response => console.log(response))
-}
-
 function contarSegundos() {
     motor = setInterval(() => {
-        initMap();
+        obterLocalizacao()
         enviarLocalizacao();
-    }, 60000);
+    }, 120000);
 }
 
 function cancelarPedido() {
@@ -168,5 +147,23 @@ async function initMap(a, b) {
     });
 }
 
+function enviarLocalizacao() {
+    const dados = {
+        latitude: lat,
+        longitude: long,
+        idEntregador: entregadorId,
+        idPedido: pedidoId,
+    }
+    fetch("https://chocode.herokuapp.com/geolocalizacao",
+        {
+            method: "POST",
+            headers: {
+                "Authorization": token,
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dados)
+        }).then(response => console.log(response))
+}
+
 contarSegundos();
-enviarLocalizacao();

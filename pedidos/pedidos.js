@@ -1,7 +1,7 @@
 const body = document.querySelector('body');
 const token = localStorage.getItem('token');
 
-fetch('https://chocode.herokuapp.com/pedido/aguardando').then(function (response) {
+fetch('https://chocode.herokuapp.com/pedido/status/aguardando_entregador').then(function (response) {
     const promise = response.json()
     promise.then(function (lista) {
         lista.forEach(function (pedido) {
