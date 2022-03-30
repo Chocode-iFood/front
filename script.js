@@ -17,8 +17,14 @@ function logar() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(dados)
-        }).then((response) => response.json())
-        .then((responseData) => {
+        }).then((response) => {
+            response.json()
+            console.log(response)
+            if (response.status != 200) {
+                msglogin.textContent = "Dados inválidos";
+            }
+        }).then((responseData) => {
+            console.log(responseData)
             if (responseData.token != null) {
                 localStorage.setItem("token", responseData.token)
                 localStorage.setItem("entregador", responseData.id)
@@ -26,7 +32,9 @@ function logar() {
             } else {
                 msglogin.textContent = "Erro ao conectar";
             }
-        })
+        }).catch(error => {
+            console.log('Erro: ->', error)
+        });
 };
 
 function rodar() {
