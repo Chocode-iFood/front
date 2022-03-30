@@ -15,7 +15,7 @@ function obterLocalizacao() {
         navigator.geolocation.getCurrentPosition(function (posicao) {
             lat = posicao.coords.latitude;
             long = posicao.coords.longitude;
-            initMap();
+            initMap(lat, long);
         }, function (error) {
             console.log(error)
         })
@@ -56,7 +56,6 @@ fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`,
         console.log('Erro: ' + error);
     });
 
-let posEntregador = 'R. Projetada, 75 - Jardim Mercedes, Ferraz de Vasconcelos - SP, 08541-215';
 let posCliente = { lat: -23.5446941, lng: -46.3786544 };
 
 btnConcluir.addEventListener('click', event => {
@@ -123,12 +122,11 @@ function proximaPagina() {
     window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
 }
 
-async function initMap() {
+async function initMap(a, b) {
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 10,
-        center: { lat: lat, lng: long },
         styles: [
             {
                 "featureType": "administrative",
@@ -160,7 +158,7 @@ async function initMap() {
     directionsRenderer.setMap(map);
 
     directionsService.route({
-        origin: posEntregador,
+        origin: { lat: a, lng: b },
         destination: posCliente,
         travelMode: google.maps.TravelMode.DRIVING
     }).then(response => {
@@ -172,10 +170,3 @@ async function initMap() {
 
 contarSegundos();
 enviarLocalizacao();
-
-
-
-
-
-
-
