@@ -4,12 +4,12 @@ const email = document.querySelector(".email");
 const senha = document.querySelector(".senha");
 const msglogin = document.querySelector(".msglogin")
 
-function logar() {
+async function logar() {
     const dados = {
         "email": email.value,
         "senha": senha.value
     }
-    fetch("https://chocode.herokuapp.com/entregador/login",
+    const response = await fetch("https://chocode.herokuapp.com/entregador/login",
         {
             method: "POST",
             headers: {
@@ -17,24 +17,15 @@ function logar() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(dados)
-        }).then((response) => {
-            response.json()
-            console.log(response)
-            if (response.status != 200) {
-                msglogin.textContent = "Dados inválidos";
-            }
-        }).then((responseData) => {
-            console.log(responseData)
-            if (responseData.token != null) {
-                localStorage.setItem("token", responseData.token)
-                localStorage.setItem("entregador", responseData.id)
-                rodar();
-            } else {
-                msglogin.textContent = "Erro ao conectar";
-            }
-        }).catch(error => {
-            console.log('Erro: ->', error)
-        });
+        })
+    console.log(response)
+    let data;
+    if (response.ok) {
+        data = await response.json();
+        localStorage.setItem("token", data.token)
+        localStorage.setItem("entregador", data.id)
+        rodar();
+    }
 };
 
 function rodar() {
@@ -54,3 +45,17 @@ form.addEventListener('submit', function (event) {
     logar();
     limpar();
 });
+
+    // .then((resposta) => {
+    //     resposta.json()
+    //         .then((responseData) => {
+    //             if (responseData.token != null) {
+    //                 localStorage.setItem("token", responseData.token)
+    //                 localStorage.setItem("entregador", responseData.id)
+    //                 rodar();
+    //             } else {
+    //                 msglogin.textContent = "Erro ao conectar";
+    //             }
+    //         })
+    // })
+
