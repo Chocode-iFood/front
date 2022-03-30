@@ -147,14 +147,14 @@ async function initMap(a, b, posCliente) {
     });
 }
 
-function enviarLocalizacao() {
+async function enviarLocalizacao() {
     const dados = {
         latitude: lat,
         longitude: long,
         idEntregador: entregadorId,
         idPedido: pedidoId,
     }
-    fetch("https://chocode.herokuapp.com/geolocalizacao",
+    const response = await fetch("https://chocode.herokuapp.com/geolocalizacao",
         {
             method: "POST",
             headers: {
@@ -163,7 +163,12 @@ function enviarLocalizacao() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(dados)
-        }).then(response => console.log(response))
+        })
+    let data;
+    if (response.ok) {
+        data = await response.json();
+        console.log('Retorno', data)
+    }
 }
 obterLocalizacao();
 enviarLocalizacao();
