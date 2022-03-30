@@ -10,12 +10,14 @@ let lat = 0;
 let long = 0;
 let motor;
 
+let posicaoCliente = { lat: -23.5446941, lng: -46.3786544 };
+
 function obterLocalizacao() {
     if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(function (posicao) {
             lat = posicao.coords.latitude;
             long = posicao.coords.longitude;
-            initMap(lat, long);
+            initMap(lat, long, posicaoCliente);
         }, function (error) {
             console.log(error)
         })
@@ -55,8 +57,6 @@ fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`,
     .catch(function (error) {
         console.log('Erro: ' + error);
     });
-
-let posCliente = { lat: -23.5446941, lng: -46.3786544 };
 
 btnConcluir.addEventListener('click', event => {
     clearInterval(motor);
@@ -101,7 +101,7 @@ function proximaPagina() {
     window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
 }
 
-async function initMap(a, b) {
+async function initMap(a, b, posCliente) {
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
     const map = new google.maps.Map(document.getElementById("map"), {
@@ -165,5 +165,5 @@ function enviarLocalizacao() {
             body: JSON.stringify(dados)
         }).then(response => console.log(response))
 }
-
+obterLocalizacao();
 contarSegundos();
