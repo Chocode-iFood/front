@@ -44,7 +44,7 @@ fetch('https://chocode.herokuapp.com/pedido/status/aguardando_entregador',
 
 
 function proximaPagina() {
-    window.location.href = "https://chocode-ifood.github.io/front/detalhes/detalhes.html";
+    window.location.href = "https://chocode-ifood.github.io/front/iniciar/iniciar.html";
 }
 
 
