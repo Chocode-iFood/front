@@ -6,11 +6,11 @@ const divPedidos = document.querySelector('.pedidos');
 const btnConcluir = document.querySelector('.concluir');
 const btnCancelar = document.querySelector('.cancelar');
 
+
+let posicaoCliente = { lat: -23.5446941, lng: -46.3786544 };
 let lat = 0;
 let long = 0;
 let motor;
-
-let posicaoCliente = { lat: -23.5446941, lng: -46.3786544 };
 
 function obterLocalizacao() {
     if ('geolocation' in navigator) {
@@ -21,6 +21,31 @@ function obterLocalizacao() {
         }, function (error) {
             console.log(error)
         })
+    }
+}
+obterLocalizacao();
+
+async function enviarLocalizacao() {
+    const dados = {
+        latitude: lat,
+        longitude: long,
+        idEntregador: entregadorId,
+        idPedido: pedidoId,
+    }
+    const response = await fetch("https://chocode.herokuapp.com/geolocalizacao",
+        {
+            method: "POST",
+            headers: {
+                "Authorization": token,
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dados)
+        })
+    let data;
+    if (response.ok) {
+        data = await response.json();
+        console.log('Retorno', data)
     }
 }
 
@@ -147,29 +172,7 @@ async function initMap(a, b, posCliente) {
     });
 }
 
-async function enviarLocalizacao() {
-    const dados = {
-        latitude: lat,
-        longitude: long,
-        idEntregador: entregadorId,
-        idPedido: pedidoId,
-    }
-    const response = await fetch("https://chocode.herokuapp.com/geolocalizacao",
-        {
-            method: "POST",
-            headers: {
-                "Authorization": token,
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(dados)
-        })
-    let data;
-    if (response.ok) {
-        data = await response.json();
-        console.log('Retorno', data)
-    }
-}
+
 obterLocalizacao();
 enviarLocalizacao();
 contarSegundos();
