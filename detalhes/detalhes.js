@@ -156,7 +156,6 @@ async function init() {
     await detalharPedido();
     obterLocalizacao();
     carregarAvatar();
-    enviarLocalizacao();
     contarSegundos();
 }
 
