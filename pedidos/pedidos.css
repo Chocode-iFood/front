@@ -51,5 +51,12 @@ button:active {
   justify-content: center;
   align-items: center;
 }
+.sair { 
+  text-align: center;
+  position: fixed;
+  width: 100vw;
+  height: 50px;
+  bottom: 0px;
+}
 
 

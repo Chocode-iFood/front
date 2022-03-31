@@ -1,5 +1,6 @@
 const body = document.querySelector('body');
 const token = localStorage.getItem('token');
+const btnSair = document.querySelector('.sair');
 
 listarPedidos();
 let lista;
@@ -31,9 +32,14 @@ async function listarPedidos() {
     })
 };
 
+btnSair.addEventListener('click', event => {
+    localStorage.clear();
+    window.location.href = "https://chocode-ifood.github.io/front/index.html";
+});
+
 function proximaPagina() {
     window.location.href = "https://chocode-ifood.github.io/front/iniciar/iniciar.html";
-}
+};
 
 
 
