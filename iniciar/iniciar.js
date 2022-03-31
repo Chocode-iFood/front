@@ -33,12 +33,10 @@ async function detalharPedido() {
     const pRes = document.createElement('p');
     const pCliente = document.createElement('p');
     const pEnd = document.createElement('p');
-    const pLat = document.createElement('p');
-    const pLong = document.createElement('p');
     const pStatus = document.createElement('p');
 
-    clienteLat = pedido.cliente.latitude;
-    clienteLong = pedido.cliente.longitude;
+    parseFloat(clienteLat) = pedido.cliente.latitude;
+    parseFloat(clienteLong) = pedido.cliente.longitude;
     console.log(clienteLat, clienteLong)
 
     pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
@@ -97,7 +95,7 @@ async function initMap(a, b) {
     directionsRenderer.setMap(map);
     directionsService.route({
         origin: { lat: a, lng: b },
-        destination: { lat: parseInt(clienteLat), lng: parseInt(clienteLong) },
+        destination: { lat: clienteLat, lng: clienteLong },
         travelMode: google.maps.TravelMode.DRIVING
     }).then(response => {
         directionsRenderer.setDirections(response);
