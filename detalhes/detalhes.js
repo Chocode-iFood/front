@@ -19,7 +19,7 @@ function obterLocalizacao() {
         navigator.geolocation.getCurrentPosition(function (posicao) {
             lat = posicao.coords.latitude;
             long = posicao.coords.longitude;
-            initMap(lat, long, posicaoCliente);
+            initMap(lat, long);
             atualizarCoords(lat, long);
         }, function (error) {
             console.log(error)
@@ -130,7 +130,7 @@ async function atribuirEntregador() {
     }
 };
 
-async function initMap(a, b, posCliente) {
+async function initMap(a, b) {
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
     const map = new google.maps.Map(document.getElementById("map"), {

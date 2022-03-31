@@ -8,6 +8,8 @@ const btnVoltar = document.querySelector('.voltar');
 
 let lat = 0;
 let long = 0;
+let clienteLat;
+let clienteLong;
 
 detalharPedido();
 let pedido;
@@ -35,6 +37,11 @@ async function detalharPedido() {
     const pLong = document.createElement('p');
     const pStatus = document.createElement('p');
 
+    clienteLat = pedido.cliente.latitude;
+    clienteLong = pedido.cliente.longitude;
+
+    console.log('Tipo do cliente -> ', typeof clienteLat);
+
     pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
     pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
     pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
@@ -42,8 +49,6 @@ async function detalharPedido() {
     divDados.append(pRes, pCliente, pEnd, pStatus);
     divPedidos.append(divDados)
 }
-
-console.log(pedido);
 
 obterLocalizacao();
 function obterLocalizacao() {
@@ -93,7 +98,7 @@ async function initMap(a, b) {
     directionsRenderer.setMap(map);
     directionsService.route({
         origin: { lat: a, lng: b },
-        destination: { lat: -23.5446941, lng: -46.3786544 },
+        destination: { lat: parseInt(clienteLat), lng: parseInt(clienteLong) },
         travelMode: google.maps.TravelMode.DRIVING
     }).then(response => {
         directionsRenderer.setDirections(response);
