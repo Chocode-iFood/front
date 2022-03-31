@@ -1,19 +1,3 @@
-const pedidoId = localStorage.getItem('pedido');
-const entregadorId = localStorage.getItem('entregador');
-const token = localStorage.getItem('token');
-const body = document.querySelector('body');
-const divPedidos = document.querySelector('.pedidos');
-const btnConcluir = document.querySelector('.concluir');
-const btnCancelar = document.querySelector('.cancelar');
-const divCoords = document.querySelector('.coords');
-const avatar = document.querySelector('.avatar');
-const urlEntregador = localStorage.getItem("urlEntregador");
-const nomeEntregador = localStorage.getItem("nomeEntregador");
-
-let lat = 0;
-let long = 0;
-let motor;
-
 function obterLocalizacao() {
     if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(function (posicao) {
@@ -27,8 +11,6 @@ function obterLocalizacao() {
     }
 };
 
-obterLocalizacao();
-
 async function enviarLocalizacao() {
     const dados = {
         latitude: lat,
@@ -36,30 +18,22 @@ async function enviarLocalizacao() {
         idEntregador: entregadorId,
         idPedido: pedidoId,
     }
-    const response = await fetch("https://chocode.herokuapp.com/geolocalizacoes",
-        {
-            method: "POST",
-            headers: {
-                "Authorization": token,
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(dados)
-        })
-    let data;
+    const response = await fetch("https://chocode.herokuapp.com/geolocalizacoes", {
+        method: "POST",
+        headers: {
+            "Authorization": token,
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dados)
+    })
     if (response.ok) {
-        data = await response.json();
+        let data = await response.json();
         console.log('Retorno', data)
     }
 };
 
-atribuirEntregador();
-carregarAvatar();
-detalharPedido();
 
-let pedido;
-let clienteLat;
-let clienteLong;
 async function detalharPedido() {
     const response = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}`,
         {
@@ -90,43 +64,24 @@ async function detalharPedido() {
     clienteLong = parseFloat(pedido.cliente.longitude);
 
     divDados.append(pRes, pCliente, pEnd, pStatus);
-    divPedidos.append(divDados)
+    document.querySelector('.pedidos').append(divDados)
 };
 
 function carregarAvatar() {
-    avatar.src = urlEntregador;
+    document.querySelector('.avatar').src = urlEntregador;
 }
-
-const ptit = document.createElement('p');
-let plat = document.createElement('p');
-let plong = document.createElement('p');
-divCoords.append(ptit, plat, plong)
 
 function atualizarCoords(lat, long) {
     plat.textContent = lat;
     plong.textContent = long;
 };
 
-function contarSegundos() {
-    motor = setInterval(() => {
-        obterLocalizacao();
-        enviarLocalizacao();
-    }, 10000);
-}
-
-async function atribuirEntregador() {
-
-    const promise = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}/entregador/${entregadorId}`,
-        {
-            method: "PUT",
-            headers: {
-                "Authorization": token,
-            }
-        })
-    if (promise.ok) {
-        console.log('Atribuiu entregador/pedido', id, entregador)
-    }
-};
+// function contarSegundos() {
+//     motor = setInterval(() => {
+//         obterLocalizacao();
+//         enviarLocalizacao();
+//     }, 10000);
+// }
 
 async function initMap(a, b) {
     const directionsService = new google.maps.DirectionsService();
@@ -173,30 +128,14 @@ async function initMap(a, b) {
     });
 };
 
-obterLocalizacao();
-enviarLocalizacao();
-contarSegundos();
-
-btnConcluir.addEventListener('click', event => {
-    clearInterval(motor);
-    pedidoEntregue();
-    proximaPagina();
-});
-
-btnCancelar.addEventListener('click', event => {
-    clearInterval(motor);
-    cancelarPedido();
-    proximaPagina();
-});
 
 function cancelarPedido() {
-    fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}/entregador/${entregadorId}/cancelado`,
-        {
-            method: "PUT",
-            headers: {
-                "Authorization": token
-            }
-        }).then(response => console.log(response.status))
+    fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}/entregador/${entregadorId}/cancelado`, {
+        method: "PUT",
+        headers: {
+            "Authorization": token
+        }
+    }).then(response => console.log(response.status))
 };
 
 function pedidoEntregue() {
@@ -215,3 +154,57 @@ function proximaPagina() {
     }, 1500);
 };
 
+
+async function init() {
+    await detalharPedido();
+    obterLocalizacao();
+    carregarAvatar();
+    enviarLocalizacao();
+    contarSegundos();
+}
+
+function pageLoad() {
+    const btnConcluir = document.querySelector('.concluir');
+    const btnCancelar = document.querySelector('.cancelar');
+
+    btnConcluir.addEventListener('click', event => {
+        clearInterval(motor);
+        pedidoEntregue();
+        proximaPagina();
+    });
+
+    btnCancelar.addEventListener('click', event => {
+        clearInterval(motor);
+        cancelarPedido();
+        proximaPagina();
+    });
+
+    ptit = document.createElement('p');
+    plat = document.createElement('p');
+    plong = document.createElement('p');
+    document.querySelector('.coords').append(ptit, plat, plong)
+
+    init();
+}
+
+
+//variáveis blobais
+const pedidoId = localStorage.getItem('pedido');
+const entregadorId = localStorage.getItem('entregador');
+const token = localStorage.getItem('token');
+const urlEntregador = localStorage.getItem("urlEntregador");
+const nomeEntregador = localStorage.getItem("nomeEntregador");
+
+let lat = -0.0;
+let long = -0.0;
+let motor;
+
+let pedido;
+let clienteLat;
+let clienteLong;
+
+let ptit = null;
+let plat = null;
+let plong = null;
+
+window.onload = pageLoad;
