@@ -7,8 +7,6 @@ const btnConcluir = document.querySelector('.concluir');
 const btnCancelar = document.querySelector('.cancelar');
 const divCoords = document.querySelector('.coords');
 
-atribuirEntregador(pedidoId, entregadorId);
-
 let posicaoCliente = { lat: -23.5446941, lng: -46.3786544 };
 let lat = 0;
 let long = 0;
@@ -51,6 +49,8 @@ async function enviarLocalizacao() {
         console.log('Retorno', data)
     }
 }
+
+atribuirEntregador();
 
 detalharPedido();
 let pedido;
@@ -100,9 +100,9 @@ function contarSegundos() {
     }, 10000);
 }
 
-async function atribuirEntregador(id, entregador) {
+async function atribuirEntregador() {
 
-    const promise = await fetch(`https://chocode.herokuapp.com/pedido/${id}/entregador/${entregador}`,
+    const promise = await fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}/entregador/${entregadorId}`,
         {
             method: "PUT",
             headers: {
