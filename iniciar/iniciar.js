@@ -5,31 +5,32 @@ async function detalharPedido() {
             "Authorization": token
         }
     })
-    if (response.ok) {
-        let pedido = await response.json();
-    }
     if (response.status !== 200) {
         console.log('Erro ao buscar pedido')
     }
-    const divDados = document.createElement('div');
-    divDados.classList.add('dados');
+    if (response.ok) {
+        let pedido = await response.json();
 
-    const pRes = document.createElement('p');
-    const pCliente = document.createElement('p');
-    const pEnd = document.createElement('p');
-    const pStatus = document.createElement('p');
-    const divPedidos = document.querySelector('.pedidos');
+        const divDados = document.createElement('div');
+        divDados.classList.add('dados');
 
-    clienteLat = parseFloat(pedido.cliente.latitude);
-    clienteLong = parseFloat(pedido.cliente.longitude);
+        const pRes = document.createElement('p');
+        const pCliente = document.createElement('p');
+        const pEnd = document.createElement('p');
+        const pStatus = document.createElement('p');
+        const divPedidos = document.querySelector('.pedidos');
 
-    pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
-    pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
-    pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
-    pStatus.textContent = 'Status: ' + pedido.status;
-    divDados.append(pRes, pCliente, pEnd, pStatus);
-    divPedidos.append(divDados)
-}
+        clienteLat = parseFloat(pedido.cliente.latitude);
+        clienteLong = parseFloat(pedido.cliente.longitude);
+
+        pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
+        pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
+        pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
+        pStatus.textContent = 'Status: ' + pedido.status;
+        divDados.append(pRes, pCliente, pEnd, pStatus);
+        divPedidos.append(divDados)
+    }
+};
 
 function obterLocalizacao() {
     if ('geolocation' in navigator) {
@@ -90,7 +91,7 @@ async function initMap(a, b) {
 async function init() {
     await detalharPedido();
     obterLocalizacao();
-}
+};
 
 function pageLoad() {
 
