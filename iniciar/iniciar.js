@@ -104,8 +104,6 @@ function pageLoad() {
     });
 
     btnIniciar.addEventListener('click', async event => {
-        window.location.href = "https://chocode-ifood.github.io/front/detalhes/detalhes.html";
-
         const response = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}/entregador/${entregadorId}`, {
             method: "PUT",
             headers: {
@@ -115,8 +113,11 @@ function pageLoad() {
         if (response.status !== 200) {
             console.log("Erro ao atribuir entregador")
         }
-    });
+        setTimeout(() => {
+            window.location.href = "https://chocode-ifood.github.io/front/detalhes/detalhes.html";
+        }, 1000)
 
+    });
     init();
 };
 
