@@ -103,12 +103,12 @@ function atualizarCoords(lat, long) {
     plong.textContent = long;
 };
 
-// function contarSegundos() {
-//     motor = setInterval(() => {
-//         obterLocalizacao();
-//         enviarLocalizacao();
-//     }, 10000);
-// }
+function contarSegundos() {
+    motor = setInterval(() => {
+        obterLocalizacao();
+        enviarLocalizacao();
+    }, 10000);
+}
 
 async function atribuirEntregador() {
 
