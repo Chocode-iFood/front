@@ -54,8 +54,6 @@ async function detalharPedido() {
         const pEnd = document.createElement('p');
         const pStatus = document.createElement('p');
 
-        debugger
-
         pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
         pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
         pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
@@ -143,13 +141,12 @@ function cancelarPedido() {
 };
 
 function pedidoEntregue() {
-    fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}/entregador/${entregadorId}/entregue`,
-        {
-            method: "PUT",
-            headers: {
-                "Authorization": token
-            }
-        }).then(response => console.log(response.status))
+    fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}/entregador/${entregadorId}/entregue`, {
+        method: "PUT",
+        headers: {
+            "Authorization": token
+        }
+    }).then(response => console.log(response.status))
 };
 
 function proximaPagina() {

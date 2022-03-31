@@ -1,18 +1,3 @@
-const pedidoId = localStorage.getItem('pedido');
-const entregadorId = localStorage.getItem('entregador');
-const token = localStorage.getItem('token');
-const body = document.querySelector('body');
-const divPedidos = document.querySelector('.pedidos');
-const btnIniciar = document.querySelector('.iniciar');
-const btnVoltar = document.querySelector('.voltar');
-
-let lat = 0;
-let long = 0;
-let clienteLat;
-let clienteLong;
-
-
-let pedido;
 async function detalharPedido() {
     const response = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}`,
         {
@@ -22,7 +7,7 @@ async function detalharPedido() {
             }
         })
     if (response.ok) {
-        pedido = await response.json();
+        let pedido = await response.json();
     }
     if (response.status !== 200) {
         console.log('Erro ao buscar pedido')
@@ -34,6 +19,7 @@ async function detalharPedido() {
     const pCliente = document.createElement('p');
     const pEnd = document.createElement('p');
     const pStatus = document.createElement('p');
+    const divPedidos = document.querySelector('.pedidos');
 
     clienteLat = parseFloat(pedido.cliente.latitude);
     clienteLong = parseFloat(pedido.cliente.longitude);
@@ -103,24 +89,48 @@ async function initMap(a, b) {
     });
 };
 
-btnIniciar.addEventListener('click', async event => {
-    window.location.href = "https://chocode-ifood.github.io/front/detalhes/detalhes.html";
 
-    const response = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}/entregador/${entregadorId}`, {
-        method: "PUT",
-        headers: {
-            "Authorization": token,
+
+async function init() {
+    await detalharPedido();
+    obterLocalizacao();
+}
+
+function pageLoad() {
+
+    const body = document.querySelector('body');
+    const btnIniciar = document.querySelector('.iniciar');
+    const btnVoltar = document.querySelector('.voltar');
+
+    btnVoltar.addEventListener('click', event => {
+        window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
+    });
+
+    btnIniciar.addEventListener('click', async event => {
+        window.location.href = "https://chocode-ifood.github.io/front/detalhes/detalhes.html";
+
+        const response = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}/entregador/${entregadorId}`, {
+            method: "PUT",
+            headers: {
+                "Authorization": token,
+            }
+        })
+        if (response.status !== 200) {
+            console.log("Erro ao atribuir entregador")
         }
-    })
-    if (response.status !== 200) {
-        console.log("Erro ao atribuir entregador")
-    }
-});
+    });
 
-btnVoltar.addEventListener('click', event => {
-    window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
-});
+    init();
+}
 
+const pedidoId = localStorage.getItem('pedido');
+const entregadorId = localStorage.getItem('entregador');
+const token = localStorage.getItem('token');
 
-detalharPedido();
-obterLocalizacao();
+let lat = 0;
+let long = 0;
+let clienteLat;
+let clienteLong;
+let pedido;
+
+window.onload = pageLoad;
