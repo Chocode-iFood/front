@@ -26,6 +26,8 @@ async function logar() {
         data = await response.json();
         localStorage.setItem("token", data.token)
         localStorage.setItem("entregador", data.id)
+        localStorage.setItem("urlEntregador", data.urlImage)
+        localStorage.setItem("nomeEntregador", data.nome)
         rodar();
     }
 };

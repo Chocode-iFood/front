@@ -6,6 +6,9 @@ const divPedidos = document.querySelector('.pedidos');
 const btnConcluir = document.querySelector('.concluir');
 const btnCancelar = document.querySelector('.cancelar');
 const divCoords = document.querySelector('.coords');
+const avatar = document.querySelector('.avatar');
+const urlEntregador = localStorage.getItem("urlEntregador");
+const nomeEntregador = localStorage.getItem("nomeEntregador");
 
 let posicaoCliente = { lat: -23.5446941, lng: -46.3786544 };
 let lat = 0;
@@ -23,7 +26,9 @@ function obterLocalizacao() {
             console.log(error)
         })
     }
-}
+};
+
+
 obterLocalizacao();
 
 async function enviarLocalizacao() {
@@ -48,10 +53,10 @@ async function enviarLocalizacao() {
         data = await response.json();
         console.log('Retorno', data)
     }
-}
+};
 
 atribuirEntregador();
-
+carregarAvatar();
 detalharPedido();
 let pedido;
 async function detalharPedido() {
@@ -82,6 +87,10 @@ async function detalharPedido() {
 
     divDados.append(pRes, pCliente, pEnd, pStatus);
     divPedidos.append(divDados)
+};
+
+function carregarAvatar() {
+    avatar.src = urlEntregador;
 }
 
 const ptit = document.createElement('p');
@@ -92,14 +101,14 @@ divCoords.append(ptit, plat, plong)
 function atualizarCoords(lat, long) {
     plat.textContent = lat;
     plong.textContent = long;
-}
+};
 
-// function contarSegundos() {
-//     motor = setInterval(() => {
-//         obterLocalizacao();
-//         enviarLocalizacao();
-//     }, 10000);
-// }
+function contarSegundos() {
+    motor = setInterval(() => {
+        obterLocalizacao();
+        enviarLocalizacao();
+    }, 10000);
+}
 
 async function atribuirEntregador() {
 
@@ -113,7 +122,7 @@ async function atribuirEntregador() {
     if (promise.ok) {
         console.log('Atribuiu entregador/pedido', id, entregador)
     }
-}
+};
 
 async function initMap(a, b, posCliente) {
     const directionsService = new google.maps.DirectionsService();
@@ -157,7 +166,8 @@ async function initMap(a, b, posCliente) {
     }).catch(erro => {
         console.log(erro)
     });
-}
+};
+
 obterLocalizacao();
 enviarLocalizacao();
 contarSegundos();
@@ -182,7 +192,7 @@ function cancelarPedido() {
                 "Authorization": token
             }
         }).then(response => console.log(response))
-}
+};
 
 function pedidoEntregue() {
     fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}/entregador/${entregadorId}/entregue`,
@@ -192,9 +202,9 @@ function pedidoEntregue() {
                 "Authorization": token
             }
         }).then(response => console.log(response))
-}
+};
 
 function proximaPagina() {
     window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
-}
+};
 
