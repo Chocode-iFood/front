@@ -86,8 +86,8 @@ async function detalharPedido() {
     pStatus.textContent = 'Status: ' + status;
     ptit.textContent = 'Coords:';
 
-    clienteLat = pedido.cliente.latitude;
-    clienteLong = pedido.cliente.longitude;
+    clienteLat = parseFloat(pedido.cliente.latitude);
+    clienteLong = parseFloat(pedido.cliente.longitude);
 
     divDados.append(pRes, pCliente, pEnd, pStatus);
     divPedidos.append(divDados)
@@ -164,7 +164,7 @@ async function initMap(a, b) {
     directionsRenderer.setMap(map);
     directionsService.route({
         origin: { lat: a, lng: b },
-        destination: { lat: parseInt(clienteLat), lng: parseInt(clienteLong) },
+        destination: { lat: clienteLat, lng: clienteLong },
         travelMode: google.maps.TravelMode.DRIVING
     }).then(response => {
         directionsRenderer.setDirections(response);

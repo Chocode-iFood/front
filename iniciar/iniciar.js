@@ -38,8 +38,6 @@ async function detalharPedido() {
     clienteLat = parseFloat(pedido.cliente.latitude);
     clienteLong = parseFloat(pedido.cliente.longitude);
 
-    console.log(clienteLat, clienteLong);
-
     pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
     pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
     pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
