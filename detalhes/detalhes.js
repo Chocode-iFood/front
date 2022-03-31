@@ -35,36 +35,40 @@ async function enviarLocalizacao() {
 
 
 async function detalharPedido() {
-    const response = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}`,
-        {
-            method: "GET",
-            headers: {
-                "Authorization": token
-            }
-        })
+    debugger
+    const response = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}`, {
+        method: "GET",
+        headers: {
+            "Authorization": token
+        }
+    })
+
     if (response.ok) {
         pedido = await response.json();
+
+        const divDados = document.createElement('div');
+        divDados.classList.add('dados');
+
+        const pRes = document.createElement('p');
+        const pCliente = document.createElement('p');
+        const pEnd = document.createElement('p');
+        const pStatus = document.createElement('p');
+
+        debugger
+
+        pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
+        pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
+        pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
+        let status = pedido.status === 'a_caminho' ? 'Indo até você' : + pedido.status;
+        pStatus.textContent = 'Status: ' + status;
+        ptit.textContent = 'Coords:';
+
+        clienteLat = parseFloat(pedido.cliente.latitude);
+        clienteLong = parseFloat(pedido.cliente.longitude);
+
+        divDados.append(pRes, pCliente, pEnd, pStatus);
+        document.querySelector('.pedidos').append(divDados)
     }
-    const divDados = document.createElement('div');
-    divDados.classList.add('dados');
-
-    const pRes = document.createElement('p');
-    const pCliente = document.createElement('p');
-    const pEnd = document.createElement('p');
-    const pStatus = document.createElement('p');
-
-    pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
-    pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
-    pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
-    let status = pedido.status === 'a_caminho' ? 'Indo até você' : + pedido.status;
-    pStatus.textContent = 'Status: ' + status;
-    ptit.textContent = 'Coords:';
-
-    clienteLat = parseFloat(pedido.cliente.latitude);
-    clienteLong = parseFloat(pedido.cliente.longitude);
-
-    divDados.append(pRes, pCliente, pEnd, pStatus);
-    document.querySelector('.pedidos').append(divDados)
 };
 
 function carregarAvatar() {
@@ -76,12 +80,12 @@ function atualizarCoords(lat, long) {
     plong.textContent = long;
 };
 
-// function contarSegundos() {
-//     motor = setInterval(() => {
-//         obterLocalizacao();
-//         enviarLocalizacao();
-//     }, 10000);
-// }
+function contarSegundos() {
+    motor = setInterval(() => {
+        obterLocalizacao();
+        enviarLocalizacao();
+    }, 10000);
+}
 
 async function initMap(a, b) {
     const directionsService = new google.maps.DirectionsService();

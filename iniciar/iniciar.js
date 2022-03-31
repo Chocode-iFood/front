@@ -11,7 +11,7 @@ let long = 0;
 let clienteLat;
 let clienteLong;
 
-detalharPedido();
+
 let pedido;
 async function detalharPedido() {
     const response = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}`,
@@ -46,7 +46,7 @@ async function detalharPedido() {
     divPedidos.append(divDados)
 }
 
-obterLocalizacao();
+
 function obterLocalizacao() {
     if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(function (posicao) {
@@ -121,4 +121,6 @@ btnVoltar.addEventListener('click', event => {
     window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
 });
 
+
+detalharPedido();
 obterLocalizacao();
