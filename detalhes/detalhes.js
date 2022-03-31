@@ -10,7 +10,6 @@ const avatar = document.querySelector('.avatar');
 const urlEntregador = localStorage.getItem("urlEntregador");
 const nomeEntregador = localStorage.getItem("nomeEntregador");
 
-let posicaoCliente = { lat: -23.5446941, lng: -46.3786544 };
 let lat = 0;
 let long = 0;
 let motor;
@@ -59,6 +58,8 @@ carregarAvatar();
 detalharPedido();
 
 let pedido;
+let clienteLat;
+let clienteLong;
 async function detalharPedido() {
     const response = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}`,
         {
@@ -84,6 +85,11 @@ async function detalharPedido() {
     let status = pedido.status === 'a_caminho' ? 'Indo até você' : + pedido.status;
     pStatus.textContent = 'Status: ' + status;
     ptit.textContent = 'Coords:';
+
+    clienteLat = pedido.cliente.latitude;
+    clienteLong = pedido.cliente.longitude;
+
+    console.log('Tipo do cliente -> ', typeof clienteLat);
 
     divDados.append(pRes, pCliente, pEnd, pStatus);
     divPedidos.append(divDados)
@@ -159,7 +165,7 @@ async function initMap(a, b, posCliente) {
     directionsRenderer.setMap(map);
     directionsService.route({
         origin: { lat: a, lng: b },
-        destination: posCliente,
+        destination: { lat: parseInt(clienteLat), lng: parseInt(clienteLong) },
         travelMode: google.maps.TravelMode.DRIVING
     }).then(response => {
         directionsRenderer.setDirections(response);
@@ -204,7 +210,9 @@ function pedidoEntregue() {
         }).then(response => console.log(response.status))
 };
 
-// function proximaPagina() {
-//     window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
-// };
+function proximaPagina() {
+    setTimeout(() => {
+        window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
+    }, 1500);
+};
 
