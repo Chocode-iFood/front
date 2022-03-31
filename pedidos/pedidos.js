@@ -4,7 +4,7 @@ const token = localStorage.getItem('token');
 listarPedidos();
 let lista;
 async function listarPedidos() {
-    const promise = await fetch('https://chocode.herokuapp.com/pedido/status/aguardando_entregador',
+    const promise = await fetch('https://chocode.herokuapp.com/pedidos/status/aguardando_entregador',
         {
             method: "GET",
             headers: {

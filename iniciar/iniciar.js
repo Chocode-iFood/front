@@ -12,7 +12,7 @@ let long = 0;
 detalharPedido();
 let pedido;
 async function detalharPedido() {
-    const response = await fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`,
+    const response = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}`,
         {
             method: "GET",
             headers: {

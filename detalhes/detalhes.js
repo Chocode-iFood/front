@@ -33,7 +33,7 @@ async function enviarLocalizacao() {
         idEntregador: entregadorId,
         idPedido: pedidoId,
     }
-    const response = await fetch("https://chocode.herokuapp.com/geolocalizacao",
+    const response = await fetch("https://chocode.herokuapp.com/geolocalizacoes",
         {
             method: "POST",
             headers: {
@@ -55,7 +55,7 @@ atribuirEntregador();
 detalharPedido();
 let pedido;
 async function detalharPedido() {
-    const response = await fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`,
+    const response = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}`,
         {
             method: "GET",
             headers: {
@@ -76,7 +76,8 @@ async function detalharPedido() {
     pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
     pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
     pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
-    pStatus.textContent = 'Status: ' + pedido.status == 'a_caminho' ? 'Indo até você' : pedido.status;
+    const status = pedido.status === 'a_caminho' ? 'Indo até você' : + pedido.status;
+    pStatus.textContent = 'Status: ' + status;
     ptit.textContent = 'Coords:';
 
     divDados.append(pRes, pCliente, pEnd, pStatus);
@@ -93,16 +94,16 @@ function atualizarCoords(lat, long) {
     plong.textContent = long;
 }
 
-function contarSegundos() {
-    motor = setInterval(() => {
-        obterLocalizacao();
-        enviarLocalizacao();
-    }, 10000);
-}
+// function contarSegundos() {
+//     motor = setInterval(() => {
+//         obterLocalizacao();
+//         enviarLocalizacao();
+//     }, 10000);
+// }
 
 async function atribuirEntregador() {
 
-    const promise = await fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}/entregador/${entregadorId}`,
+    const promise = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}/entregador/${entregadorId}`,
         {
             method: "PUT",
             headers: {
@@ -174,7 +175,7 @@ btnCancelar.addEventListener('click', event => {
 });
 
 function cancelarPedido() {
-    fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}/entregador/${entregadorId}/cancelado`,
+    fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}/entregador/${entregadorId}/cancelado`,
         {
             method: "PUT",
             headers: {
@@ -184,7 +185,7 @@ function cancelarPedido() {
 }
 
 function pedidoEntregue() {
-    fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}/entregador/${entregadorId}/entregue`,
+    fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}/entregador/${entregadorId}/entregue`,
         {
             method: "PUT",
             headers: {

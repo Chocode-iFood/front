@@ -41,17 +41,6 @@ body h2 {
   border: 1px solid rgba(230, 6, 6, 0.342) 
 }
 
-.label {
-  padding: 5px 15px;
-  position: absolute;
-  background-color: rgb(255, 255, 255);
-  z-index: 3;
-  bottom: 97px;
-  font-size: 16px;
-  color: rgb(43, 8, 8);
-  right: 60px;
-}
-
 .titulo {
   width: 100%;
   position: absolute;
@@ -130,6 +119,12 @@ button {
 
 p {
   margin: 10px 0 0 10px ;
+}
+
+.avatar {
+  position: absolute;
+  z-index: 2;
+  bottom: 70px;
 }
 
 

@@ -9,7 +9,7 @@ async function logar() {
         "email": email.value,
         "senha": senha.value
     }
-    const response = await fetch("https://chocode.herokuapp.com/entregador/login",
+    const response = await fetch("https://chocode.herokuapp.com/entregadores/login",
         {
             method: "POST",
             headers: {
