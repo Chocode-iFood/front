@@ -57,6 +57,7 @@ async function enviarLocalizacao() {
 atribuirEntregador();
 carregarAvatar();
 detalharPedido();
+
 let pedido;
 async function detalharPedido() {
     const response = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}`,
@@ -102,12 +103,12 @@ function atualizarCoords(lat, long) {
     plong.textContent = long;
 };
 
-function contarSegundos() {
-    motor = setInterval(() => {
-        obterLocalizacao();
-        enviarLocalizacao();
-    }, 10000);
-}
+// function contarSegundos() {
+//     motor = setInterval(() => {
+//         obterLocalizacao();
+//         enviarLocalizacao();
+//     }, 10000);
+// }
 
 async function atribuirEntregador() {
 
@@ -190,7 +191,7 @@ function cancelarPedido() {
             headers: {
                 "Authorization": token
             }
-        }).then(response => console.log(response))
+        }).then(response => console.log(response.status))
 };
 
 function pedidoEntregue() {
@@ -200,10 +201,10 @@ function pedidoEntregue() {
             headers: {
                 "Authorization": token
             }
-        }).then(response => console.log(response))
+        }).then(response => console.log(response.status))
 };
 
-function proximaPagina() {
-    window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
-};
+// function proximaPagina() {
+//     window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
+// };
 
