@@ -8,7 +8,6 @@ const btnVoltar = document.querySelector('.voltar');
 
 let lat = 0;
 let long = 0;
-let motor;
 
 detalharPedido();
 let pedido;
@@ -22,8 +21,10 @@ async function detalharPedido() {
         })
     if (response.ok) {
         pedido = await response.json();
+    } 
+    if (response.status !== 200) {
+        console.log('Erro ao buscar pedido')
     }
-
     const divDados = document.createElement('div');
     divDados.classList.add('dados');
 
@@ -51,10 +52,10 @@ function obterLocalizacao() {
             long = posicao.coords.longitude;
             initMap(lat, long);
         }, function (error) {
-            console.log(error)
+            console.log(error);
         })
     }
-}
+};
 
 async function initMap(a, b) {
     const directionsService = new google.maps.DirectionsService();
@@ -95,11 +96,11 @@ async function initMap(a, b) {
         travelMode: google.maps.TravelMode.DRIVING
     }).then(response => {
         directionsRenderer.setDirections(response);
-        const teste = response.json()
+        const teste = response.json();
     }).catch(erro => {
-        console.log(erro)
+        console.log(erro);
     });
-}
+};
 
 btnIniciar.addEventListener('click', event => {
     window.location.href = "https://chocode-ifood.github.io/front/detalhes/detalhes.html";

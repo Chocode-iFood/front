@@ -5,6 +5,7 @@ const body = document.querySelector('body');
 const divPedidos = document.querySelector('.pedidos');
 const btnConcluir = document.querySelector('.concluir');
 const btnCancelar = document.querySelector('.cancelar');
+const divCoords = document.querySelector('.coords');
 
 let posicaoCliente = { lat: -23.5446941, lng: -46.3786544 };
 let lat = 0;
@@ -17,6 +18,7 @@ function obterLocalizacao() {
             lat = posicao.coords.latitude;
             long = posicao.coords.longitude;
             initMap(lat, long, posicaoCliente);
+            atualizarCoords(lat, long);
         }, function (error) {
             console.log(error)
         })
@@ -48,43 +50,50 @@ async function enviarLocalizacao() {
     }
 }
 
-fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`,
-    {
-        method: "GET",
-        headers: {
-            "Authorization": token
-        }
-    }).then(function (response) {
-        response.json().then(function (pedido) {
+detalharPedido();
+let pedido;
+async function detalharPedido() {
+    const response = await fetch(`https://chocode.herokuapp.com/pedido/${pedidoId}`,
+        {
+            method: "GET",
+            headers: {
+                "Authorization": token
+            }
+        })
+    if (response.ok) {
+        pedido = await response.json();
+    }
+    const divDados = document.createElement('div');
+    divDados.classList.add('dados');
 
-            const divDados = document.createElement('div');
-            divDados.classList.add('dados');
+    const pRes = document.createElement('p');
+    const pCliente = document.createElement('p');
+    const pEnd = document.createElement('p');
+    const pStatus = document.createElement('p');
 
-            const pRes = document.createElement('p');
-            const pCliente = document.createElement('p');
-            const pEnd = document.createElement('p');
-            const pLat = document.createElement('p');
-            const pLong = document.createElement('p');
-            const pStatus = document.createElement('p');
+    pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
+    pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
+    pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
+    pStatus.textContent = 'Status: ' + pedido.status;
+    ptit.textContent = 'Coords:';
 
-            pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
-            pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
-            pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
-            // pLat.textContent = 'Latitude: ' + pedido.cliente.latitude;
-            // pLong.textContent = 'Longitude: ' + pedido.cliente.longitude;
-            pStatus.textContent = 'Status: ' + pedido.status;
+    divDados.append(pRes, pCliente, pEnd, pStatus);
+    divPedidos.append(divDados)
+}
 
-            divDados.append(pRes, pCliente, pEnd, pStatus);
-            divPedidos.append(divDados)
-        });
-    })
-    .catch(function (error) {
-        console.log('Erro: ' + error);
-    });
+const ptit = document.createElement('p');
+let plat = document.createElement('p');
+let plong = document.createElement('p');
+divCoords.append(ptit, plat, plong)
+
+function atualizarCoords(lat, long) {
+    plat.textContent = lat;
+    plong.textContent = long;
+}
 
 function contarSegundos() {
     motor = setInterval(() => {
-        obterLocalizacao()
+        obterLocalizacao();
         enviarLocalizacao();
     }, 10000);
 }

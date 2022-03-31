@@ -28,6 +28,30 @@ body h2 {
   margin-top: 15px;
 }
 
+.coords {
+  text-align: center;
+  display: flex;
+  justify-content:space-around;
+  width: 80%;
+  height: 40px;
+  border-radius: 10px;
+  position: absolute;
+  z-index: 2;
+  bottom: 70px;
+  border: 1px solid rgba(230, 6, 6, 0.342) 
+}
+
+.label {
+  padding: 5px 15px;
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  z-index: 3;
+  bottom: 97px;
+  font-size: 16px;
+  color: rgb(43, 8, 8);
+  right: 60px;
+}
+
 .titulo {
   width: 100%;
   position: absolute;
@@ -57,7 +81,7 @@ body h2 {
 }
 
 .dados {
-  margin-top: 20px;
+  margin-top: 15px;
   width: 90vw;
 }
 
@@ -105,6 +129,7 @@ button {
 }
 
 p {
-  margin: 7px 0 0 10px ;
+  margin: 10px 0 0 10px ;
 }
+
 
