@@ -39,8 +39,7 @@ async function detalharPedido() {
 
     clienteLat = pedido.cliente.latitude;
     clienteLong = pedido.cliente.longitude;
-
-    console.log('Tipo do cliente -> ', typeof clienteLat);
+    console.log(clienteLat, clienteLong)
 
     pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
     pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;

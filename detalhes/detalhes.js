@@ -89,8 +89,6 @@ async function detalharPedido() {
     clienteLat = pedido.cliente.latitude;
     clienteLong = pedido.cliente.longitude;
 
-    console.log('Tipo do cliente -> ', typeof clienteLat);
-
     divDados.append(pRes, pCliente, pEnd, pStatus);
     divPedidos.append(divDados)
 };
@@ -162,6 +160,7 @@ async function initMap(a, b) {
         ],
         disableDefaultUI: true
     });
+    console.log(parseFloat(clienteLat), parseInt(clienteLong))
     directionsRenderer.setMap(map);
     directionsService.route({
         origin: { lat: a, lng: b },
