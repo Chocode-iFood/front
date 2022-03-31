@@ -43,8 +43,9 @@ async function detalharPedido() {
     divPedidos.append(divDados)
 }
 
+console.log(pedido);
+
 obterLocalizacao();
-let posicaoCliente = { lat: -23.5446941, lng: -46.3786544 };
 function obterLocalizacao() {
     if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(function (posicao) {
@@ -96,8 +97,6 @@ async function initMap(a, b) {
         travelMode: google.maps.TravelMode.DRIVING
     }).then(response => {
         directionsRenderer.setDirections(response);
-        const teste = await response.json();
-        console.log(teste)
     }).catch(erro => {
         console.log(erro);
     });
