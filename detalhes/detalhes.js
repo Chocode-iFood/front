@@ -7,6 +7,8 @@ const btnConcluir = document.querySelector('.concluir');
 const btnCancelar = document.querySelector('.cancelar');
 const divCoords = document.querySelector('.coords');
 
+atribuirEntregador(pedidoId, entregadorId);
+
 let posicaoCliente = { lat: -23.5446941, lng: -46.3786544 };
 let lat = 0;
 let long = 0;
@@ -74,7 +76,7 @@ async function detalharPedido() {
     pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
     pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
     pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
-    pStatus.textContent = 'Status: ' + pedido.status;
+    pStatus.textContent = 'Status: ' + pedido.status == 'a_caminho' ? 'Indo até você' : pedido.status;
     ptit.textContent = 'Coords:';
 
     divDados.append(pRes, pCliente, pEnd, pStatus);
@@ -96,6 +98,20 @@ function contarSegundos() {
         obterLocalizacao();
         enviarLocalizacao();
     }, 10000);
+}
+
+async function atribuirEntregador(id, entregador) {
+
+    const promise = await fetch(`https://chocode.herokuapp.com/pedido/${id}/entregador/${entregador}`,
+        {
+            method: "PUT",
+            headers: {
+                "Authorization": token,
+            }
+        })
+    if (promise.ok) {
+        console.log('Atribuiu entregador/pedido', id, entregador)
+    }
 }
 
 async function initMap(a, b, posCliente) {

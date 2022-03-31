@@ -26,24 +26,10 @@ async function listarPedidos() {
         nome.addEventListener('click', event => {
             localStorage.setItem('pedido', nome.id);
             const entregadorId = localStorage.getItem('entregador')
-            atribuirEntregador(nome.id, entregadorId)
+            proximaPagina();
         })
     })
 };
-
-async function atribuirEntregador(id, entregador) {
-    const promise = await fetch(`https://chocode.herokuapp.com/pedido/${id}/entregador/${entregador}`,
-        {
-            method: "PUT",
-            headers: {
-                "Authorization": token,
-            }
-        }).catch()
-    const dados = await promise.json();
-    if (promise.ok) {
-        proximaPagina();
-    }
-}
 
 function proximaPagina() {
     window.location.href = "https://chocode-ifood.github.io/front/iniciar/iniciar.html";

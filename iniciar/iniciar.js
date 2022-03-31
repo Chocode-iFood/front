@@ -21,7 +21,7 @@ async function detalharPedido() {
         })
     if (response.ok) {
         pedido = await response.json();
-    } 
+    }
     if (response.status !== 200) {
         console.log('Erro ao buscar pedido')
     }
@@ -109,3 +109,8 @@ btnIniciar.addEventListener('click', event => {
 btnVoltar.addEventListener('click', event => {
     window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
 });
+
+setTimeout({
+    obterLocalizacao();
+}, 2000)
+
