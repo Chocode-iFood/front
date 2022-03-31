@@ -96,7 +96,8 @@ async function initMap(a, b) {
         travelMode: google.maps.TravelMode.DRIVING
     }).then(response => {
         directionsRenderer.setDirections(response);
-        const teste = response.json();
+        const teste = await response.json();
+        console.log(teste)
     }).catch(erro => {
         console.log(erro);
     });
@@ -111,4 +112,3 @@ btnVoltar.addEventListener('click', event => {
 });
 
 obterLocalizacao();
-

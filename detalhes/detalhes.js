@@ -28,7 +28,6 @@ function obterLocalizacao() {
     }
 };
 
-
 obterLocalizacao();
 
 async function enviarLocalizacao() {
@@ -81,7 +80,7 @@ async function detalharPedido() {
     pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
     pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
     pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
-    const status = pedido.status === 'a_caminho' ? 'Indo até você' : + pedido.status;
+    let status = pedido.status === 'a_caminho' ? 'Indo até você' : + pedido.status;
     pStatus.textContent = 'Status: ' + status;
     ptit.textContent = 'Coords:';
 
