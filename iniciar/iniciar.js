@@ -110,7 +110,5 @@ btnVoltar.addEventListener('click', event => {
     window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
 });
 
-setTimeout({
-    obterLocalizacao();
-}, 2000)
+obterLocalizacao();
 
