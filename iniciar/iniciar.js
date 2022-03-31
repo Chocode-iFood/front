@@ -26,7 +26,8 @@ async function detalharPedido() {
         pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
         pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
         pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
-        pStatus.textContent = 'Status: ' + pedido.status;
+        const status = pedido.status === 'aguardando_entregador' ? 'Aguardando Entregador' : pedido.status;
+        pStatus.textContent = 'Status: ' + status;
         divDados.append(pRes, pCliente, pEnd, pStatus);
         divPedidos.append(divDados)
     }
@@ -95,7 +96,6 @@ async function init() {
 
 function pageLoad() {
 
-    const body = document.querySelector('body');
     const btnIniciar = document.querySelector('.iniciar');
     const btnVoltar = document.querySelector('.voltar');
 
@@ -110,8 +110,8 @@ function pageLoad() {
                 "Authorization": token,
             }
         })
-        if (response.status !== 200) {
-            console.log("Erro ao atribuir entregador")
+        if (response.status !== 201) {
+            console.log("Erro ao atribuir entregador");
         }
         setTimeout(() => {
             window.location.href = "https://chocode-ifood.github.io/front/detalhes/detalhes.html";

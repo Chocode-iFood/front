@@ -54,7 +54,7 @@ async function detalharPedido() {
         pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
         pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
         pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
-        let status = pedido.status === 'a_caminho' ? 'Indo até você' : + pedido.status;
+        const status = pedido.status === 'a_caminho' ? 'Indo até você' : + pedido.status;
         pStatus.textContent = 'Status: ' + status;
         ptit.textContent = 'Coords:';
 
@@ -126,7 +126,6 @@ async function initMap(a, b) {
     });
 };
 
-
 function cancelarPedido() {
     fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}/entregador/${entregadorId}/cancelado`, {
         method: "PUT",
@@ -166,12 +165,14 @@ function pageLoad() {
         clearInterval(motor);
         pedidoEntregue();
         proximaPagina();
+        localStorage.removeItem('pedido');
     });
 
     btnCancelar.addEventListener('click', event => {
         clearInterval(motor);
         cancelarPedido();
         proximaPagina();
+        localStorage.removeItem('pedido');
     });
 
     ptit = document.createElement('p');
