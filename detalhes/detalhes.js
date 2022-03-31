@@ -29,13 +29,10 @@ async function enviarLocalizacao() {
     })
     if (response.ok) {
         let data = await response.json();
-        console.log('Retorno', data)
     }
 };
 
-
 async function detalharPedido() {
-    debugger
     const response = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}`, {
         method: "GET",
         headers: {
@@ -155,7 +152,6 @@ function proximaPagina() {
     }, 1500);
 };
 
-
 async function init() {
     await detalharPedido();
     obterLocalizacao();
@@ -188,8 +184,6 @@ function pageLoad() {
     init();
 }
 
-
-//variáveis blobais
 const pedidoId = localStorage.getItem('pedido');
 const entregadorId = localStorage.getItem('entregador');
 const token = localStorage.getItem('token');

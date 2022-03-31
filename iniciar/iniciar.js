@@ -1,11 +1,10 @@
 async function detalharPedido() {
-    const response = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}`,
-        {
-            method: "GET",
-            headers: {
-                "Authorization": token
-            }
-        })
+    const response = await fetch(`https://chocode.herokuapp.com/pedidos/${pedidoId}`, {
+        method: "GET",
+        headers: {
+            "Authorization": token
+        }
+    })
     if (response.ok) {
         let pedido = await response.json();
     }
@@ -31,7 +30,6 @@ async function detalharPedido() {
     divDados.append(pRes, pCliente, pEnd, pStatus);
     divPedidos.append(divDados)
 }
-
 
 function obterLocalizacao() {
     if ('geolocation' in navigator) {
@@ -89,8 +87,6 @@ async function initMap(a, b) {
     });
 };
 
-
-
 async function init() {
     await detalharPedido();
     obterLocalizacao();
@@ -121,7 +117,7 @@ function pageLoad() {
     });
 
     init();
-}
+};
 
 const pedidoId = localStorage.getItem('pedido');
 const entregadorId = localStorage.getItem('entregador');
