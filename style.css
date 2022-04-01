@@ -5,7 +5,6 @@
 
 body {
   min-width: 100vw;
-  /* min-height: 100vh; */
   font-family: 'Rubik', sans-serif;
   font-size: 1rem;
   background-color: white;
@@ -21,9 +20,7 @@ body {
 .box {
   min-width: 100vw;
   margin-top: 4rem;
-  /* max-height: 100vh; */
   border-radius: 25px;
-  /* box-shadow: 0 0 4px 4px; */
   color: rgba(165, 42, 42, 0.178);
 }
 
@@ -63,6 +60,7 @@ input::placeholder {
   font-size: 12px;
   padding: 2px 20px;
 }
+
 .msglogin {
   height: 25px;
   color: rgb(7, 85, 37);
@@ -84,11 +82,11 @@ input::placeholder {
   box-shadow: 0 0 8px 3px rgba(255, 0, 0, 0.338);
   color: rgb(255, 255, 255);
 }
+
 .btnEntrar:active {
   background-color: rgb(199, 80, 80);
   color: rgb(254, 254, 254);
 }
-
 
 @media only screen and (min-width: 200px) and (max-width: 450px) {
   .logo {
@@ -115,5 +113,4 @@ input::placeholder {
   .box h2 {
     font-size: 25px;
   }
-  
 }

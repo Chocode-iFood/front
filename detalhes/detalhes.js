@@ -6,7 +6,7 @@ function obterLocalizacao() {
             initMap(lat, long);
             atualizarCoords(lat, long);
         }, function (error) {
-            console.log(error)
+            console.log(error);
         })
     }
 };
@@ -62,7 +62,7 @@ async function detalharPedido() {
 
         divDados.append(pRes, pCliente, pEnd, pStatus);
         document.querySelector('.titulo').append(msgTitulo);
-        document.querySelector('.pedidos').append(divDados)
+        document.querySelector('.pedidos').append(divDados);
     }
 };
 
@@ -122,7 +122,7 @@ async function initMap(a, b) {
     }).then(response => {
         directionsRenderer.setDirections(response);
     }).catch(erro => {
-        console.log(erro)
+        console.log(erro);
     });
 };
 
@@ -132,7 +132,7 @@ function cancelarPedido() {
         headers: {
             "Authorization": token
         }
-    }).then(response => console.log(response.status))
+    }).then(response => console.log(response.status));
 };
 
 function pedidoEntregue() {
@@ -141,7 +141,7 @@ function pedidoEntregue() {
         headers: {
             "Authorization": token
         }
-    }).then(response => console.log(response.status))
+    }).then(response => console.log(response.status));
 };
 
 function proximaPagina() {
@@ -178,7 +178,7 @@ function pageLoad() {
     ptit = document.createElement('p');
     plat = document.createElement('p');
     plong = document.createElement('p');
-    document.querySelector('.coords').append(ptit, plat, plong)
+    document.querySelector('.coords').append(ptit, plat, plong);
 
     init();
 };

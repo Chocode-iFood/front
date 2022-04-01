@@ -5,12 +5,8 @@ async function detalharPedido() {
             "Authorization": token
         }
     })
-    console.log(response);
-    let data = await response.json();
-    console.log(data);
-
     if (response.status !== 200) {
-        console.log('Erro ao buscar pedido')
+        console.log('Erro ao buscar pedido');
     }
     if (response.ok) {
         let pedido = await response.json();
@@ -33,7 +29,7 @@ async function detalharPedido() {
         const status = pedido.status === 'aguardando_entregador' ? 'Aguardando Entregador' : pedido.status;
         pStatus.textContent = 'Status: ' + status;
         divDados.append(pRes, pCliente, pEnd, pStatus);
-        divPedidos.append(divDados)
+        divPedidos.append(divDados);
     }
 };
 
@@ -44,7 +40,7 @@ function obterLocalizacao() {
             long = posicao.coords.longitude;
             initMap(lat, long);
         }, function (error) {
-            console.log(error);
+            console.log(error.message);
         })
     }
 };
@@ -89,7 +85,7 @@ async function initMap(a, b) {
     }).then(response => {
         directionsRenderer.setDirections(response);
     }).catch(erro => {
-        console.log(erro);
+        console.log(erro.message);
     });
 };
 
@@ -104,6 +100,7 @@ function pageLoad() {
     const btnVoltar = document.querySelector('.voltar');
 
     btnVoltar.addEventListener('click', event => {
+        localStorage.removeItem('pedido');
         window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
     });
 
@@ -119,7 +116,7 @@ function pageLoad() {
         }
         setTimeout(() => {
             window.location.href = "https://chocode-ifood.github.io/front/detalhes/detalhes.html";
-        }, 1000)
+        }, 1000);
 
     });
     init();

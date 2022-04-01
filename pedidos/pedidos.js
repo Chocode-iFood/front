@@ -23,7 +23,7 @@ async function listarPedidos() {
 
         nome.setAttribute("id", pedido.id);
         nome.textContent = pedido.nomeRestaurante;
-        icone.src = '../src/restaurante.png'
+        icone.src = '../src/restaurante.png';
 
         nome.append(icone);
         div.append(nome);
@@ -32,7 +32,7 @@ async function listarPedidos() {
         pedido = document.querySelector('button');
         nome.addEventListener('click', event => {
             localStorage.setItem('pedido', nome.id);
-            const entregadorId = localStorage.getItem('entregador')
+            const entregadorId = localStorage.getItem('entregador');
             proximaPagina();
         })
     })

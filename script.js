@@ -2,7 +2,7 @@ const btn = document.querySelector(".btnEntrar");
 const form = document.querySelector(".formLogin");
 const email = document.querySelector(".email");
 const senha = document.querySelector(".senha");
-const msglogin = document.querySelector(".msglogin")
+const msglogin = document.querySelector(".msglogin");
 
 async function logar() {
     const dados = {
@@ -23,10 +23,10 @@ async function logar() {
     }
     if (response.ok) {
         data = await response.json();
-        localStorage.setItem("token", data.token)
-        localStorage.setItem("entregador", data.id)
-        localStorage.setItem("urlEntregador", data.urlImage)
-        localStorage.setItem("nomeEntregador", data.nome)
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("entregador", data.id);
+        localStorage.setItem("urlEntregador", data.urlImage);
+        localStorage.setItem("nomeEntregador", data.nome);
         rodar();
     }
 };
@@ -34,7 +34,7 @@ async function logar() {
 function rodar() {
     msglogin.textContent = "Login efetuado com Sucesso!";
     setTimeout(() => {
-        window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html"
+        window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
     }, 1000);
 };
 
