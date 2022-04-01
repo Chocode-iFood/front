@@ -16,10 +16,16 @@ async function listarPedidos() {
     lista.forEach(pedido => {
         const div = document.createElement('div');
         div.classList.add('center');
-
         const nome = document.createElement('button');
+        nome.classList.add('btnpedido');
+        const icone = document.createElement('img');
+        icone.classList.add('icone');
+
         nome.setAttribute("id", pedido.id);
         nome.textContent = pedido.nomeRestaurante;
+        icone.src = '../src/restaurante.png'
+
+        nome.append(icone);
         div.append(nome);
         body.append(div);
 
