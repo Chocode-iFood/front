@@ -50,7 +50,7 @@ async function detalharPedido() {
         const pStatus = document.createElement('p');
         const status = pedido.status === 'a_caminho' ? 'Indo até você' : + pedido.status;
 
-        msgTitulo.textContent = 'Bom trabalho, ' + nomeEntregador;
+        msgTitulo.textContent = 'Olá, ' + nomeEntregador;
         pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
         pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
         pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
