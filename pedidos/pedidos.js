@@ -44,7 +44,9 @@ btnSair.addEventListener('click', event => {
 });
 
 function proximaPagina() {
-    window.location.href = "https://chocode-ifood.github.io/front/iniciar/iniciar.html";
+    setTimeout(() => {
+        window.location.href = "https://chocode-ifood.github.io/front/iniciar/iniciar.html";
+    }, 1500);
 };
 
 

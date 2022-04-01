@@ -5,6 +5,10 @@ async function detalharPedido() {
             "Authorization": token
         }
     })
+    console.log(response);
+    let data = await response.json();
+    console.log(data);
+
     if (response.status !== 200) {
         console.log('Erro ao buscar pedido')
     }
