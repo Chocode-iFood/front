@@ -27,9 +27,6 @@ async function enviarLocalizacao() {
         },
         body: JSON.stringify(dados)
     })
-    if (response.ok) {
-        let data = await response.json();
-    }
 };
 
 async function detalharPedido() {
@@ -46,15 +43,17 @@ async function detalharPedido() {
         const divDados = document.createElement('div');
         divDados.classList.add('dados');
 
+        const msgTitulo = document.createElement('h2');
         const pRes = document.createElement('p');
         const pCliente = document.createElement('p');
         const pEnd = document.createElement('p');
         const pStatus = document.createElement('p');
+        const status = pedido.status === 'a_caminho' ? 'Indo até você' : + pedido.status;
 
+        msgTitulo.textContent = 'Bom trabalho, ' + nomeEntregador;
         pRes.textContent = 'Restaurante: ' + pedido.nomeRestaurante;
         pCliente.textContent = 'Cliente: ' + pedido.cliente.nome;
         pEnd.textContent = 'Endereço: ' + pedido.cliente.endereco;
-        const status = pedido.status === 'a_caminho' ? 'Indo até você' : + pedido.status;
         pStatus.textContent = 'Status: ' + status;
         ptit.textContent = 'Coords:';
 
@@ -62,13 +61,14 @@ async function detalharPedido() {
         clienteLong = parseFloat(pedido.cliente.longitude);
 
         divDados.append(pRes, pCliente, pEnd, pStatus);
+        document.querySelector('.titulo').append(msgTitulo);
         document.querySelector('.pedidos').append(divDados)
     }
 };
 
 function carregarAvatar() {
     document.querySelector('.avatar').src = urlEntregador;
-}
+};
 
 function atualizarCoords(lat, long) {
     plat.textContent = lat;
@@ -80,7 +80,7 @@ function contarSegundos() {
         obterLocalizacao();
         enviarLocalizacao();
     }, 10000);
-}
+};
 
 async function initMap(a, b) {
     const directionsService = new google.maps.DirectionsService();
@@ -155,7 +155,7 @@ async function init() {
     obterLocalizacao();
     carregarAvatar();
     contarSegundos();
-}
+};
 
 function pageLoad() {
     const btnConcluir = document.querySelector('.concluir');
@@ -181,7 +181,7 @@ function pageLoad() {
     document.querySelector('.coords').append(ptit, plat, plong)
 
     init();
-}
+};
 
 const pedidoId = localStorage.getItem('pedido');
 const entregadorId = localStorage.getItem('entregador');

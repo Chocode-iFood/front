@@ -9,15 +9,14 @@ async function logar() {
         "email": email.value,
         "senha": senha.value
     }
-    const response = await fetch("https://chocode.herokuapp.com/entregadores/login",
-        {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(dados)
-        })
+    const response = await fetch("https://chocode.herokuapp.com/entregadores/login", {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dados)
+    })
     let data;
     if (response.status !== 200) {
         msglogin.textContent = "Dados inválidos";
@@ -41,7 +40,7 @@ function rodar() {
 
 function limpar() {
     email.value = "",
-        senha.value = "";
+        senha.value = ""
 };
 
 form.addEventListener('submit', function (event) {
