@@ -38,7 +38,10 @@ function obterLocalizacao() {
         navigator.geolocation.getCurrentPosition(function (posicao) {
             lat = posicao.coords.latitude;
             long = posicao.coords.longitude;
+            lat1 = posicao.coords.latitude;
+            long1 = posicao.coords.longitude;
             initMap(lat, long);
+            carregarDistancia(lat, long);
         }, function (error) {
             console.log(error.message);
         })
@@ -48,7 +51,8 @@ function obterLocalizacao() {
 async function initMap(a, b) {
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
-    const map = new google.maps.Map(document.getElementById("map"), {
+
+    map = new google.maps.Map(document.getElementById("map"), {
         zoom: 10,
         styles: [
             {
@@ -89,19 +93,36 @@ async function initMap(a, b) {
     });
 };
 
+function carregarDistancia(lat, long) {
+
+    origin1 = new google.maps.LatLng(lat, long);
+    origin2 = new google.maps.LatLng(clienteLat, clienteLong);
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
+        {
+            origins: [origin1],
+            destinations: [origin2],
+            travelMode: 'DRIVING',
+        }, callback);
+
+    async function callback(response) {
+        document.querySelector('.distancia').textContent = await response.rows[0].elements[0].distance.text;
+        document.querySelector('.tempo').textContent = await response.rows[0].elements[0].duration.text;
+    }
+};
+
 async function init() {
     await detalharPedido();
     obterLocalizacao();
 };
 
 function pageLoad() {
-
     const btnIniciar = document.querySelector('.iniciar');
     const btnVoltar = document.querySelector('.voltar');
 
     btnVoltar.addEventListener('click', event => {
         localStorage.removeItem('pedido');
-        window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
+        window.location.href = "http://127.0.0.1:5500/pedidos/pedidos.html";
     });
 
     btnIniciar.addEventListener('click', async event => {
@@ -115,9 +136,8 @@ function pageLoad() {
             console.log("Erro ao atribuir entregador");
         }
         setTimeout(() => {
-            window.location.href = "https://chocode-ifood.github.io/front/detalhes/detalhes.html";
+            window.location.href = "http://127.0.0.1:5500/detalhes/detalhes.html";
         }, 1000);
-
     });
     init();
 };
@@ -128,8 +148,15 @@ const token = localStorage.getItem('token');
 
 let lat = 0;
 let long = 0;
+let lat1 = 0;
+let long1 = 0;
 let clienteLat;
 let clienteLong;
 let pedido;
+let map;
+let origin1;
+let origin2;
+let distancia = null;
+let tempo = null;
 
 window.onload = pageLoad;

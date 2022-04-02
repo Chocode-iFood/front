@@ -25,7 +25,7 @@ body {
 
 body h2 {
   font-size: 20px;
-  margin: 25px 30px;
+  margin: 15px 30px;
 
 }
 
@@ -123,7 +123,7 @@ p {
 .avatar {
   position: absolute;
   z-index: 3;
-  top: 10px;
+  top: 15px;
   right: 15px;
   width: 40px;
   height: 40px;

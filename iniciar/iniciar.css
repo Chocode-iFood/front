@@ -34,7 +34,7 @@ body h2 {
   top: 0;
   left: 0;
   z-index: 1;
-  height: 80px;
+  height: 100px;
   background: linear-gradient(to top, rgba(255, 255, 255, 0.077), rgb(255, 255, 255),rgb(255, 255, 255));
   display: flex;
   justify-content: center;
@@ -106,5 +106,30 @@ button {
 
 p {
   margin: 7px 0 0 10px ;
+}
+
+.divsTop {
+  position: relative;
+  width: 85%;
+  z-index: 1;
+  top: 60px;
+  display: flex;
+  justify-content: space-between;
+}
+.divTop {
+  color: rgb(43, 8, 8);
+  background-color: rgba(253, 253, 253, 0.616);
+  border: 1px solid rgba(241, 8, 8, 0.438);
+  font-size: 12px;
+  text-align: left;
+  height: 30px;
+  width: 30%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+}
+h3 {
+  position: absolute;
+  top: 8px;
 }
 
