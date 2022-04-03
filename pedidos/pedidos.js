@@ -40,12 +40,12 @@ async function listarPedidos() {
 
 btnSair.addEventListener('click', event => {
     localStorage.clear();
-    window.location.href = "http://127.0.0.1:5500/index.html";
+    window.location.href = "https://chocode-ifood.github.io/front/index.html";
 });
 
 function proximaPagina() {
     setTimeout(() => {
-        window.location.href = "http://127.0.0.1:5500/iniciar/iniciar.html";
+        window.location.href = "https://chocode-ifood.github.io/front/iniciar/iniciar.html";
     }, 1500);
 };
 
