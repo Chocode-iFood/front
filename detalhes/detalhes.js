@@ -3,7 +3,10 @@ function obterLocalizacao() {
         navigator.geolocation.getCurrentPosition(function (posicao) {
             lat = posicao.coords.latitude;
             long = posicao.coords.longitude;
+            lat1 = posicao.coords.latitude;
+            long1 = posicao.coords.longitude;
             initMap(lat, long);
+            carregarDistancia(lat, long);
             atualizarCoords(lat, long);
         }, function (error) {
             console.log(error);
@@ -124,6 +127,24 @@ async function initMap(a, b) {
     }).catch(erro => {
         console.log(erro);
     });
+};
+
+function carregarDistancia(lat, long) {
+
+    origin1 = new google.maps.LatLng(lat, long);
+    origin2 = new google.maps.LatLng(clienteLat, clienteLong);
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
+        {
+            origins: [origin1],
+            destinations: [origin2],
+            travelMode: 'DRIVING',
+        }, callback);
+
+    async function callback(response) {
+        document.querySelector('.distancia').textContent = await response.rows[0].elements[0].distance.text;
+        document.querySelector('.tempo').textContent = await response.rows[0].elements[0].duration.text;
+    }
 };
 
 function cancelarPedido() {

@@ -52,7 +52,7 @@ async function initMap(a, b) {
     const directionsService = new google.maps.DirectionsService();
     const directionsRenderer = new google.maps.DirectionsRenderer();
 
-    map = new google.maps.Map(document.getElementById("map"), {
+    const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 10,
         styles: [
             {
@@ -153,10 +153,5 @@ let long1 = 0;
 let clienteLat;
 let clienteLong;
 let pedido;
-let map;
-let origin1;
-let origin2;
-let distancia = null;
-let tempo = null;
 
 window.onload = pageLoad;

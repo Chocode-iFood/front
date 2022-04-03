@@ -132,3 +132,29 @@ p {
   border: 4px solid;
   border-color: rgba(184, 168, 168, 0.295);
 }
+
+.divsTop {
+  position: relative;
+  width: 85%;
+  z-index: 1;
+  top:50px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 50px;
+}
+.divTop {
+  color: rgb(43, 8, 8);
+  background-color: rgba(253, 253, 253, 0.616);
+  border: 1px solid rgba(241, 8, 8, 0.438);
+  font-size: 12px;
+  text-align: left;
+  height: 30px;
+  width: 30%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+}
+h3 {
+  position: absolute;
+  top: 8px;
+}

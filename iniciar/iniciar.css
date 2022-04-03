@@ -112,9 +112,10 @@ p {
   position: relative;
   width: 85%;
   z-index: 1;
-  top: 60px;
+  top: 50px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 50px;
 }
 .divTop {
   color: rgb(43, 8, 8);
