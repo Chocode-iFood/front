@@ -122,7 +122,7 @@ function pageLoad() {
 
     btnVoltar.addEventListener('click', event => {
         localStorage.removeItem('pedido');
-        window.location.href = "http://127.0.0.1:5500/pedidos/pedidos.html";
+        window.location.href = "https://chocode-ifood.github.io/front/pedidos/pedidos.html";
     });
 
     btnIniciar.addEventListener('click', async event => {
@@ -136,7 +136,7 @@ function pageLoad() {
             console.log("Erro ao atribuir entregador");
         }
         setTimeout(() => {
-            window.location.href = "http://127.0.0.1:5500/detalhes/detalhes.html";
+            window.location.href = "https://chocode-ifood.github.io/front/detalhes/detalhes.html";
         }, 1000);
     });
     init();
